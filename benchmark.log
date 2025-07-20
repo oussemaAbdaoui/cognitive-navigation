@@ -1,0 +1,905 @@
+
+=== Running Scenario: Simple 5x5 ===
+2025-07-14 23:16:19.161 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:16:19.161 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-14 23:16:19.161 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:16:23.264 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:16:23.264 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:16:24.549 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:16:24.549 | INFO     | langgraph_nodes:plan_actions:271 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:16:24.549 | ERROR    | __main__:_run_navigation:94 - Error in scenario Simple 5x5: 'ActionPlanner' object has no attribute 'grid_rows'
+2025-07-14 23:20:20.467 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:20:20.468 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:20:20.468 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:20:20.469 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:22:08.529 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:22:08.529 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:22:08.530 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:22:08.530 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:22:08.531 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:22:08.531 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:22:08.531 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-14 23:22:08.531 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:22:08.531 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-14 23:22:08.531 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:22:12.635 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:22:12.635 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:22:13.930 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:22:13.930 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:22:13.930 | ERROR    | __main__:_run_navigation:96 - Error in scenario Simple 5x5: name 'original_prompt' is not defined
+2025-07-14 23:24:09.600 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:24:09.600 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:24:09.601 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:24:09.601 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:24:09.601 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:24:09.601 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:24:09.602 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-14 23:24:09.602 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:24:09.602 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-14 23:24:09.602 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:24:13.759 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:24:13.759 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:24:15.401 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:24:15.402 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:24:16.686 | SUCCESS  | langgraph_nodes:_parse_actions:335 - Generated 2 actions
+2025-07-14 23:24:16.687 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:24:19.247 | ERROR    | langgraph_nodes:_update_state:193 - State validation failed: [{"type":"greater_than_equal","loc":["robot_position",0],"msg":"Input should be greater than or equal to 0","input":-1,"ctx":{"ge":0},"url":"https://errors.pydantic.dev/2.11/v/greater_than_equal"}]
+2025-07-14 23:24:19.247 | ERROR    | langgraph_nodes:process_sensor_data:137 - Sensor processing failed: Invalid state data
+2025-07-14 23:24:19.247 | ERROR    | __main__:_run_navigation:96 - Error in scenario Simple 5x5: State update failed
+2025-07-14 23:28:38.756 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:28:38.756 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:28:38.757 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:28:38.757 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:28:38.757 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:28:38.757 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:28:38.757 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-14 23:28:38.758 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:28:38.758 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-14 23:28:38.758 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:28:42.876 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:28:42.876 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:28:44.300 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:28:44.300 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:28:47.604 | ERROR    | langgraph_nodes:_parse_actions:321 - Invalid action response: 1 validation error for Action
+direction
+  Value error, MOVE requires FORWARD direction [type=value_error, input_value='RIGHT', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-14 23:28:47.605 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:28:50.555 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:28:50.555 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:28:51.652 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:28:51.652 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:28:54.257 | ERROR    | langgraph_nodes:_parse_actions:321 - Invalid action response: 1 validation error for Action
+direction
+  Value error, MOVE requires FORWARD direction [type=value_error, input_value='RIGHT', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-14 23:28:54.257 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:28:56.850 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:28:56.850 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:29:00.395 | ERROR    | langgraph_nodes:plan_waypoint:220 - Waypoint planning failed: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1752537600000'}, 'provider_name': None}}, 'user_id': 'user_2zemJAevLmXVh6sdkqUlhi3HpET'}
+2025-07-14 23:29:00.396 | SUCCESS  | __main__:run_benchmarks:33 - Completed Simple 5x5 in 21.64s
+2025-07-14 23:29:00.396 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Maze 10x10 ===
+2025-07-14 23:29:00.396 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:29:00.396 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (10, 10) | Start: (0, 0)
+2025-07-14 23:29:00.397 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:29:03.727 | ERROR    | langgraph_nodes:process_sensor_data:137 - Sensor processing failed: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1752537600000'}, 'provider_name': None}}, 'user_id': 'user_2zemJAevLmXVh6sdkqUlhi3HpET'}
+2025-07-14 23:29:03.727 | ERROR    | __main__:_run_navigation:96 - Error in scenario Maze 10x10: State update failed
+2025-07-14 23:30:33.013 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:30:33.013 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:30:33.014 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:30:33.014 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:30:33.014 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:30:33.014 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:30:33.015 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-14 23:30:33.015 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:30:33.015 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-14 23:30:33.015 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:30:36.877 | ERROR    | langgraph_nodes:process_sensor_data:137 - Sensor processing failed: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1752537600000'}, 'provider_name': None}}, 'user_id': 'user_2zemJAevLmXVh6sdkqUlhi3HpET'}
+2025-07-14 23:30:36.877 | ERROR    | __main__:_run_navigation:96 - Error in scenario Simple 5x5: State update failed
+2025-07-14 23:34:14.811 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:34:14.811 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:34:14.811 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:34:14.812 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:34:14.812 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:34:14.812 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:34:14.812 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-14 23:34:14.813 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:34:14.813 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-14 23:34:14.813 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:34:17.741 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:34:17.741 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:34:19.010 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:34:19.010 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:34:20.343 | ERROR    | langgraph_nodes:_parse_actions:321 - Invalid action response: 1 validation error for Action
+direction
+  Value error, MOVE requires FORWARD direction [type=value_error, input_value='RIGHT', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-14 23:34:20.343 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:34:22.885 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:34:22.885 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:34:24.182 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:34:24.182 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:34:26.866 | ERROR    | langgraph_nodes:_parse_actions:321 - Invalid action response: 1 validation error for Action
+direction
+  Value error, MOVE requires FORWARD direction [type=value_error, input_value='RIGHT', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-14 23:34:26.867 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:34:28.960 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:34:28.960 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:34:30.325 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:34:30.325 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:34:32.723 | ERROR    | langgraph_nodes:_parse_actions:321 - Invalid action response: 1 validation error for Action
+direction
+  Value error, MOVE requires FORWARD direction [type=value_error, input_value='RIGHT', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-14 23:34:32.723 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:34:35.244 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:34:35.245 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:34:36.258 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:34:36.258 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:34:37.576 | ERROR    | langgraph_nodes:_parse_actions:321 - Invalid action response: 1 validation error for Action
+direction
+  Value error, MOVE requires FORWARD direction [type=value_error, input_value='RIGHT', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-14 23:34:37.576 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:34:40.343 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:34:40.343 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:34:41.600 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:34:41.600 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:34:42.921 | ERROR    | langgraph_nodes:_parse_actions:321 - Invalid action response: 1 validation error for Action
+direction
+  Value error, MOVE requires FORWARD direction [type=value_error, input_value='RIGHT', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-14 23:34:42.921 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:34:45.455 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:34:45.455 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:34:46.719 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:34:46.719 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:34:49.666 | ERROR    | langgraph_nodes:_parse_actions:321 - Invalid action response: 1 validation error for Action
+direction
+  Value error, MOVE requires FORWARD direction [type=value_error, input_value='RIGHT', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-14 23:34:49.666 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:40:28.818 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:40:28.819 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:40:28.819 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:40:28.819 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:40:28.820 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:40:28.820 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:40:28.820 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-14 23:40:28.821 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:40:28.821 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-14 23:40:28.821 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:40:32.051 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:40:32.051 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:40:33.374 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:40:33.374 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:40:35.176 | SUCCESS  | langgraph_nodes:_parse_actions:313 - Generated 4 actions
+2025-07-14 23:40:35.177 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:40:37.734 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 1] | Facing: RIGHT
+2025-07-14 23:40:37.734 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 1) | Goal: (4, 4)
+2025-07-14 23:40:38.748 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (3, 1)
+2025-07-14 23:40:38.748 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (3, 1) | Start: (1, 1) facing RIGHT
+2025-07-14 23:40:40.117 | SUCCESS  | langgraph_nodes:_parse_actions:313 - Generated 2 actions
+2025-07-14 23:40:40.117 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:40:42.965 | ERROR    | langgraph_nodes:_update_state:193 - State validation failed: [{"type":"greater_than_equal","loc":["robot_position",0],"msg":"Input should be greater than or equal to 0","input":-1,"ctx":{"ge":0},"url":"https://errors.pydantic.dev/2.11/v/greater_than_equal"}]
+2025-07-14 23:40:42.966 | ERROR    | langgraph_nodes:process_sensor_data:137 - Sensor processing failed: Invalid state data
+2025-07-14 23:40:42.966 | ERROR    | __main__:_run_navigation:96 - Error in scenario Simple 5x5: State update failed
+2025-07-14 23:45:14.270 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:45:14.270 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:45:14.271 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:45:14.271 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:45:14.271 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:45:14.271 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:45:14.272 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-14 23:45:14.272 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:45:14.272 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-14 23:45:14.272 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:45:17.021 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:45:17.021 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:45:18.709 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:45:18.709 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:45:20.505 | ERROR    | langgraph_nodes:_parse_actions:360 - Invalid action response: 1 validation error for Action
+direction
+  Input should be 'LEFT', 'RIGHT' or 'FORWARD' [type=literal_error, input_value='UP', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/literal_error
+2025-07-14 23:45:20.505 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:45:23.266 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:45:23.266 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:45:24.688 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:45:24.688 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:45:27.092 | ERROR    | langgraph_nodes:_parse_actions:360 - Invalid action response: 1 validation error for Action
+direction
+  Input should be 'LEFT', 'RIGHT' or 'FORWARD' [type=literal_error, input_value='UP', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/literal_error
+2025-07-14 23:45:27.093 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:45:29.491 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:45:29.491 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:45:30.862 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:45:30.862 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:48:54.238 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:48:54.238 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:48:54.239 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:48:54.239 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:48:54.239 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:48:54.240 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:48:54.240 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-14 23:48:54.240 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:48:54.240 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-14 23:48:54.240 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:48:57.456 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:48:57.456 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:48:58.933 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:48:58.933 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:49:01.021 | ERROR    | langgraph_nodes:_parse_actions:331 - Invalid action response: Expecting value: line 1 column 1 (char 0)
+2025-07-14 23:49:01.022 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:49:03.289 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:49:03.289 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:49:04.549 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:49:04.549 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:49:06.550 | ERROR    | langgraph_nodes:_parse_actions:331 - Invalid action response: Expecting value: line 1 column 1 (char 0)
+2025-07-14 23:49:06.550 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:51:31.613 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:51:31.613 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:52:25.105 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:52:25.105 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:52:25.106 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:52:25.106 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:52:25.107 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:52:25.107 | INFO     | langgraph_nodes:__init__:265 - ActionPlanner initialized | Cell size: 30cm
+2025-07-14 23:52:25.107 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-14 23:52:25.107 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:52:25.107 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-14 23:52:25.108 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:52:28.023 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:52:28.024 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:52:29.417 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:52:29.417 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:52:31.485 | ERROR    | langgraph_nodes:plan_actions:279 - Action planning failed: 1 validation error for Action
+direction
+  Input should be 'LEFT', 'RIGHT' or 'FORWARD' [type=literal_error, input_value='UP', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/literal_error
+2025-07-14 23:52:31.486 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:52:33.801 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:52:33.801 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:52:35.085 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:52:35.085 | INFO     | langgraph_nodes:plan_actions:272 - Planning actions to (1, 1) | Start: (0, 0) facing RIGHT
+2025-07-14 23:52:37.267 | ERROR    | langgraph_nodes:plan_actions:279 - Action planning failed: 1 validation error for Action
+direction
+  Input should be 'LEFT', 'RIGHT' or 'FORWARD' [type=literal_error, input_value='UP', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/literal_error
+2025-07-14 23:52:37.267 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:56:24.206 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:56:24.207 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:56:24.208 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:56:24.208 | INFO     | langgraph_nodes:__init__:266 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-14 23:56:24.208 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:56:24.209 | INFO     | langgraph_nodes:__init__:266 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-14 23:56:24.209 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-14 23:56:24.209 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:56:24.209 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-14 23:56:24.209 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:56:27.040 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:56:27.040 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:56:30.420 | ERROR    | langgraph_nodes:plan_waypoint:220 - Waypoint planning failed: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1752537600000'}, 'provider_name': None}}, 'user_id': 'user_2zMkStE30iS8LZREVA0TBvHUiW4'}
+2025-07-14 23:56:30.420 | SUCCESS  | __main__:run_benchmarks:33 - Completed Simple 5x5 in 6.21s
+2025-07-14 23:56:30.420 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Maze 10x10 ===
+2025-07-14 23:56:30.420 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:56:30.421 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (10, 10) | Start: (0, 0)
+2025-07-14 23:56:30.421 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:56:47.686 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:56:47.689 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:56:47.690 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:56:47.691 | INFO     | langgraph_nodes:__init__:266 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-14 23:56:47.691 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:56:47.691 | INFO     | langgraph_nodes:__init__:266 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-14 23:56:47.691 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-14 23:56:47.692 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:56:47.692 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-14 23:56:47.692 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:56:50.241 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:56:50.241 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:56:51.601 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:56:51.601 | INFO     | langgraph_nodes:plan_actions:315 - Planning actions to (1, 1) from (0, 0) facing RIGHT
+2025-07-14 23:56:53.442 | ERROR    | langgraph_nodes:plan_actions:324 - Action planning failed: Action would move to invalid position (-1, 0) outside grid boundaries (0-4, 0-4)
+2025-07-14 23:56:53.442 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:56:56.296 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:56:56.297 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:59:37.805 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:59:37.806 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-14 23:59:37.806 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:59:37.806 | INFO     | langgraph_nodes:__init__:266 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-14 23:59:37.807 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:59:37.807 | INFO     | langgraph_nodes:__init__:266 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-14 23:59:37.807 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-14 23:59:37.807 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-14 23:59:37.807 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-14 23:59:37.808 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-14 23:59:41.084 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-14 23:59:41.085 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-14 23:59:42.237 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-14 23:59:42.237 | INFO     | langgraph_nodes:plan_actions:327 - Planning actions to (1, 1) from (0, 0) facing RIGHT
+2025-07-14 23:59:43.745 | ERROR    | __main__:_run_navigation:96 - Error in scenario Simple 5x5: 'ActionPlanner' object has no attribute 'apply_actions'
+2025-07-15 00:02:08.587 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:02:08.588 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-15 00:02:08.588 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:02:08.589 | INFO     | langgraph_nodes:__init__:266 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-15 00:02:08.589 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:02:08.589 | INFO     | langgraph_nodes:__init__:266 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-15 00:02:08.589 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-15 00:02:08.590 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:02:08.590 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-15 00:02:08.590 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:02:11.303 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-15 00:02:11.303 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-15 00:02:12.614 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (1, 1)
+2025-07-15 00:02:12.614 | INFO     | langgraph_nodes:plan_actions:327 - Planning actions to (1, 1) from (0, 0) facing RIGHT
+2025-07-15 00:02:14.319 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:02:16.609 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 0] | Facing: DOWN
+2025-07-15 00:02:16.609 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 0) | Goal: (4, 4)
+2025-07-15 00:02:17.909 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (2, 4)
+2025-07-15 00:02:17.909 | INFO     | langgraph_nodes:plan_actions:327 - Planning actions to (2, 4) from (1, 0) facing DOWN
+2025-07-15 00:02:20.087 | ERROR    | langgraph_nodes:_parse_actions:370 - Failed to parse actions: 1 validation error for Action
+direction
+  Input should be 'LEFT', 'RIGHT' or 'FORWARD' [type=literal_error, input_value='UP', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/literal_error
+2025-07-15 00:02:20.087 | ERROR    | langgraph_nodes:plan_actions:336 - Action planning failed: Invalid action format
+2025-07-15 00:02:20.087 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:02:22.421 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 0] | Facing: DOWN
+2025-07-15 00:02:22.421 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 0) | Goal: (4, 4)
+2025-07-15 00:02:23.654 | SUCCESS  | langgraph_nodes:_parse_waypoint:254 - Selected waypoint: (2, 4)
+2025-07-15 00:02:23.654 | INFO     | langgraph_nodes:plan_actions:327 - Planning actions to (2, 4) from (1, 0) facing DOWN
+2025-07-15 00:02:25.615 | ERROR    | langgraph_nodes:_parse_actions:370 - Failed to parse actions: 1 validation error for Action
+direction
+  Input should be 'LEFT', 'RIGHT' or 'FORWARD' [type=literal_error, input_value='UP', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/literal_error
+2025-07-15 00:02:25.615 | ERROR    | langgraph_nodes:plan_actions:336 - Action planning failed: Invalid action format
+2025-07-15 00:02:25.615 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:02:28.138 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 0] | Facing: DOWN
+2025-07-15 00:02:28.138 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 0) | Goal: (4, 4)
+2025-07-15 00:05:18.834 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:05:18.834 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-15 00:05:18.835 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:05:18.835 | INFO     | langgraph_nodes:__init__:269 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-15 00:05:18.835 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:05:18.836 | INFO     | langgraph_nodes:__init__:269 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-15 00:05:18.836 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-15 00:05:18.836 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:05:18.836 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-15 00:05:18.836 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:05:21.928 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-15 00:05:21.929 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-15 00:05:23.313 | SUCCESS  | langgraph_nodes:_parse_waypoint:257 - Selected waypoint: (1, 1)
+2025-07-15 00:05:23.314 | INFO     | langgraph_nodes:plan_actions:330 - Planning actions to (1, 1) from (0, 0) facing RIGHT
+2025-07-15 00:05:24.856 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:05:27.408 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 0] | Facing: DOWN
+2025-07-15 00:05:27.408 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 0) | Goal: (4, 4)
+2025-07-15 00:05:28.722 | SUCCESS  | langgraph_nodes:_parse_waypoint:257 - Selected waypoint: (2, 0)
+2025-07-15 00:05:28.723 | INFO     | langgraph_nodes:plan_actions:330 - Planning actions to (2, 0) from (1, 0) facing DOWN
+2025-07-15 00:05:30.106 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:05:32.573 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 0] | Facing: LEFT
+2025-07-15 00:05:32.573 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 0) | Goal: (4, 4)
+2025-07-15 00:05:34.041 | SUCCESS  | langgraph_nodes:_parse_waypoint:257 - Selected waypoint: (2, 0)
+2025-07-15 00:05:34.041 | INFO     | langgraph_nodes:plan_actions:330 - Planning actions to (2, 0) from (1, 0) facing LEFT
+2025-07-15 00:05:35.176 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:05:37.238 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 0] | Facing: UP
+2025-07-15 00:05:37.238 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 0) | Goal: (4, 4)
+2025-07-15 00:05:38.515 | SUCCESS  | langgraph_nodes:_parse_waypoint:257 - Selected waypoint: (2, 0)
+2025-07-15 00:05:38.515 | INFO     | langgraph_nodes:plan_actions:330 - Planning actions to (2, 0) from (1, 0) facing UP
+2025-07-15 00:05:39.837 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:05:42.226 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 0] | Facing: RIGHT
+2025-07-15 00:05:42.226 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 0) | Goal: (4, 4)
+2025-07-15 00:05:43.453 | SUCCESS  | langgraph_nodes:_parse_waypoint:257 - Selected waypoint: (2, 0)
+2025-07-15 00:05:43.453 | INFO     | langgraph_nodes:plan_actions:330 - Planning actions to (2, 0) from (1, 0) facing RIGHT
+2025-07-15 00:05:45.541 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:05:47.993 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 1] | Facing: RIGHT
+2025-07-15 00:05:47.993 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 1) | Goal: (4, 4)
+2025-07-15 00:05:49.288 | SUCCESS  | langgraph_nodes:_parse_waypoint:257 - Selected waypoint: (3, 1)
+2025-07-15 00:05:49.288 | INFO     | langgraph_nodes:plan_actions:330 - Planning actions to (3, 1) from (1, 1) facing RIGHT
+2025-07-15 00:05:50.992 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:05:53.153 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [3, 1] | Facing: DOWN
+2025-07-15 00:05:53.154 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (3, 1) | Goal: (4, 4)
+2025-07-15 00:05:54.186 | SUCCESS  | langgraph_nodes:_parse_waypoint:257 - Selected waypoint: (3, 4)
+2025-07-15 00:05:54.186 | INFO     | langgraph_nodes:plan_actions:330 - Planning actions to (3, 4) from (3, 1) facing DOWN
+2025-07-15 00:05:57.568 | ERROR    | langgraph_nodes:plan_actions:339 - Action planning failed: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-min. ', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '20', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1752534360000'}, 'provider_name': None}}, 'user_id': 'user_2zhHQc9mPuYLCrgYAdVX8b5Vgnv'}
+2025-07-15 00:05:57.568 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:08:30.125 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:08:30.125 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-15 00:08:30.126 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:08:30.126 | INFO     | langgraph_nodes:__init__:272 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-15 00:08:30.126 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:08:30.126 | INFO     | langgraph_nodes:__init__:272 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-15 00:08:30.126 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-15 00:08:30.127 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:08:30.127 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-15 00:08:30.127 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:08:32.936 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-15 00:08:32.936 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-15 00:08:34.253 | SUCCESS  | langgraph_nodes:_parse_waypoint:260 - Selected waypoint: (1, 1)
+2025-07-15 00:08:34.411 | INFO     | langgraph_nodes:plan_actions:335 - Planning actions to (1, 1) from (0, 0) facing RIGHT
+2025-07-15 00:08:35.795 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:08:37.937 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: DOWN
+2025-07-15 00:08:37.938 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-15 00:08:39.241 | SUCCESS  | langgraph_nodes:_parse_waypoint:260 - Selected waypoint: (1, 1)
+2025-07-15 00:08:39.241 | INFO     | langgraph_nodes:plan_actions:335 - Planning actions to (1, 1) from (0, 0) facing DOWN
+2025-07-15 00:08:40.848 | ERROR    | langgraph_nodes:plan_actions:344 - Action planning failed: Action would move to invalid position (0, -1) outside grid boundaries (0-4, 0-4)
+2025-07-15 00:08:40.848 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:08:43.233 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: DOWN
+2025-07-15 00:08:43.234 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-15 00:08:44.529 | SUCCESS  | langgraph_nodes:_parse_waypoint:260 - Selected waypoint: (1, 1)
+2025-07-15 00:08:44.529 | INFO     | langgraph_nodes:plan_actions:335 - Planning actions to (1, 1) from (0, 0) facing DOWN
+2025-07-15 00:08:46.499 | ERROR    | langgraph_nodes:plan_actions:344 - Action planning failed: Action would move to invalid position (0, -1) outside grid boundaries (0-4, 0-4)
+2025-07-15 00:08:46.499 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:08:56.471 | INFO     | langgraph_nodes:__init__:49 - Initialized WaypointPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:08:56.471 | INFO     | langgraph_nodes:__init__:208 - WaypointPlanner initialized
+2025-07-15 00:08:56.472 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:08:56.472 | INFO     | langgraph_nodes:__init__:272 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-15 00:08:56.473 | INFO     | langgraph_nodes:__init__:49 - Initialized ActionPlanner with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:08:56.473 | INFO     | langgraph_nodes:__init__:272 - ActionPlanner initialized | Grid: (5, 5) | Cell size: 30cm
+2025-07-15 00:08:56.473 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-15 00:08:56.473 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:08:56.473 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (5, 5) | Start: (0, 0)
+2025-07-15 00:08:56.473 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:08:59.251 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [0, 0] | Facing: RIGHT
+2025-07-15 00:08:59.251 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (0, 0) | Goal: (4, 4)
+2025-07-15 00:09:00.555 | SUCCESS  | langgraph_nodes:_parse_waypoint:260 - Selected waypoint: (1, 1)
+2025-07-15 00:09:00.557 | INFO     | langgraph_nodes:plan_actions:333 - Planning actions to (1, 1) from (0, 0) facing RIGHT
+2025-07-15 00:09:02.237 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:09:05.443 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 0] | Facing: DOWN
+2025-07-15 00:09:05.444 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 0) | Goal: (4, 4)
+2025-07-15 00:09:06.773 | SUCCESS  | langgraph_nodes:_parse_waypoint:260 - Selected waypoint: (2, 0)
+2025-07-15 00:09:06.773 | INFO     | langgraph_nodes:plan_actions:333 - Planning actions to (2, 0) from (1, 0) facing DOWN
+2025-07-15 00:09:08.181 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:09:10.806 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 0] | Facing: LEFT
+2025-07-15 00:09:10.806 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 0) | Goal: (4, 4)
+2025-07-15 00:09:12.140 | SUCCESS  | langgraph_nodes:_parse_waypoint:260 - Selected waypoint: (2, 0)
+2025-07-15 00:09:12.140 | INFO     | langgraph_nodes:plan_actions:333 - Planning actions to (2, 0) from (1, 0) facing LEFT
+2025-07-15 00:09:13.539 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:09:15.885 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 0] | Facing: UP
+2025-07-15 00:09:15.886 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 0) | Goal: (4, 4)
+2025-07-15 00:09:16.921 | SUCCESS  | langgraph_nodes:_parse_waypoint:260 - Selected waypoint: (2, 4)
+2025-07-15 00:09:16.921 | INFO     | langgraph_nodes:plan_actions:333 - Planning actions to (2, 4) from (1, 0) facing UP
+2025-07-15 00:09:19.037 | ERROR    | langgraph_nodes:_parse_actions:376 - Failed to parse actions: 1 validation error for Action
+direction
+  Input should be 'LEFT', 'RIGHT' or 'FORWARD' [type=literal_error, input_value='DOWN', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/literal_error
+2025-07-15 00:09:19.037 | ERROR    | langgraph_nodes:plan_actions:342 - Action planning failed: Invalid action format
+2025-07-15 00:09:19.037 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:09:21.300 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 0] | Facing: UP
+2025-07-15 00:09:21.300 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 0) | Goal: (4, 4)
+2025-07-15 00:09:22.605 | SUCCESS  | langgraph_nodes:_parse_waypoint:260 - Selected waypoint: (2, 1)
+2025-07-15 00:09:22.605 | INFO     | langgraph_nodes:plan_actions:333 - Planning actions to (2, 1) from (1, 0) facing UP
+2025-07-15 00:09:24.144 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:09:26.486 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 1] | Facing: RIGHT
+2025-07-15 00:09:26.486 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 1) | Goal: (4, 4)
+2025-07-15 00:09:27.772 | SUCCESS  | langgraph_nodes:_parse_waypoint:260 - Selected waypoint: (2, 1)
+2025-07-15 00:09:27.772 | INFO     | langgraph_nodes:plan_actions:333 - Planning actions to (2, 1) from (1, 1) facing RIGHT
+2025-07-15 00:09:29.429 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:09:31.540 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 2] | Facing: RIGHT
+2025-07-15 00:09:31.540 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 2) | Goal: (4, 4)
+2025-07-15 00:09:32.912 | SUCCESS  | langgraph_nodes:_parse_waypoint:260 - Selected waypoint: (3, 2)
+2025-07-15 00:09:32.912 | INFO     | langgraph_nodes:plan_actions:333 - Planning actions to (3, 2) from (1, 2) facing RIGHT
+2025-07-15 00:09:34.541 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:09:36.495 | INFO     | langgraph_nodes:_update_state:191 - State updated | Position: [1, 2] | Facing: DOWN
+2025-07-15 00:09:36.495 | INFO     | langgraph_nodes:plan_waypoint:213 - Planning waypoint | Robot: (1, 2) | Goal: (4, 4)
+2025-07-15 00:09:40.078 | ERROR    | langgraph_nodes:plan_waypoint:220 - Waypoint planning failed: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-min. ', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '20', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1752534600000'}, 'provider_name': None}}, 'user_id': 'user_2zR4TDJW6AZGbMO2IYm4mStNrop'}
+2025-07-15 00:09:40.078 | SUCCESS  | __main__:run_benchmarks:33 - Completed Simple 5x5 in 43.60s
+2025-07-15 00:09:40.078 | INFO     | __main__:run_benchmarks:18 - 
+=== Running Scenario: Maze 10x10 ===
+2025-07-15 00:09:40.079 | INFO     | langgraph_nodes:__init__:49 - Initialized StateManager with model: mistralai/mistral-7b-instruct:free
+2025-07-15 00:09:40.079 | INFO     | langgraph_nodes:__init__:99 - StateManager initialized | Grid: (10, 10) | Start: (0, 0)
+2025-07-15 00:09:40.079 | INFO     | langgraph_nodes:process_sensor_data:129 - Processing sensor data
+2025-07-15 00:40:27.226 | INFO     | saam_robot_navigator:__init__:112 - SAAM Navigator initialized
+2025-07-15 00:40:27.226 | INFO     | __main__:__init__:21 - SAAM Benchmark Runner initialized
+2025-07-15 00:40:27.226 | INFO     | __main__:run_benchmarks:25 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-15 00:40:34.827 | INFO     | __main__:_run_saam_navigation:83 - Step 1 plan confidence: 0.80
+2025-07-15 00:40:34.827 | WARNING  | __main__:_run_saam_navigation:95 - Recovery #1 at step 1: Action failed: Boundary violation at [-2, 0]
+2025-07-15 00:40:42.290 | INFO     | __main__:_run_saam_navigation:83 - Step 2 plan confidence: 0.80
+2025-07-15 00:40:42.290 | WARNING  | __main__:_run_saam_navigation:95 - Recovery #2 at step 2: Action failed: Boundary violation at [0, -2]
+2025-07-15 00:40:50.460 | INFO     | __main__:_run_saam_navigation:83 - Step 3 plan confidence: 0.80
+2025-07-15 00:40:59.701 | INFO     | __main__:_run_saam_navigation:83 - Step 4 plan confidence: 0.80
+2025-07-15 00:40:59.701 | WARNING  | __main__:_run_saam_navigation:95 - Recovery #3 at step 4: Action failed: Boundary violation at [2, -2]
+2025-07-15 00:41:10.237 | INFO     | __main__:_run_saam_navigation:83 - Step 5 plan confidence: 0.80
+2025-07-15 00:41:17.532 | INFO     | __main__:_run_saam_navigation:83 - Step 6 plan confidence: 0.85
+2025-07-15 00:41:24.954 | INFO     | __main__:_run_saam_navigation:83 - Step 7 plan confidence: 0.85
+2025-07-15 00:41:34.843 | INFO     | __main__:_run_saam_navigation:83 - Step 8 plan confidence: 0.80
+2025-07-15 00:41:34.843 | WARNING  | __main__:_run_saam_navigation:95 - Recovery #4 at step 8: Action failed: Boundary violation at [3, -1]
+2025-07-15 01:28:11.046 | INFO     | saam_robot_navigator:__init__:28 - SAAM Controller initialized
+2025-07-15 01:28:11.354 | INFO     | saam_robot_navigator:__init__:102 - SAAM Navigator initialized
+2025-07-15 01:28:11.354 | INFO     | __main__:__init__:21 - SAAM Benchmark Runner initialized
+2025-07-15 01:28:11.354 | INFO     | __main__:run_benchmarks:25 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-15 01:28:18.428 | INFO     | __main__:_run_saam_navigation:83 - Step 1 plan confidence: 0.80
+2025-07-15 01:28:18.428 | WARNING  | __main__:_run_saam_navigation:95 - Recovery #1 at step 1: Action failed: Boundary violation at [-2, 0]
+2025-07-15 01:28:24.986 | INFO     | __main__:_run_saam_navigation:83 - Step 2 plan confidence: 0.80
+2025-07-15 01:28:24.986 | WARNING  | __main__:_run_saam_navigation:95 - Recovery #2 at step 2: Action failed: Boundary violation at [-2, 0]
+2025-07-15 01:28:30.106 | INFO     | __main__:_run_saam_navigation:83 - Step 3 plan confidence: 0.80
+2025-07-15 01:28:30.106 | WARNING  | __main__:_run_saam_navigation:95 - Recovery #3 at step 3: Action failed: Boundary violation at [-2, 0]
+2025-07-15 01:28:35.758 | INFO     | __main__:_run_saam_navigation:83 - Step 4 plan confidence: 0.80
+2025-07-15 01:28:35.758 | WARNING  | __main__:_run_saam_navigation:95 - Recovery #4 at step 4: Action failed: Boundary violation at [-2, 0]
+2025-07-15 01:28:41.455 | INFO     | __main__:_run_saam_navigation:83 - Step 5 plan confidence: 0.80
+2025-07-15 01:28:41.455 | WARNING  | __main__:_run_saam_navigation:95 - Recovery #5 at step 5: Action failed: Boundary violation at [-2, 0]
+2025-07-15 01:28:41.455 | SUCCESS  | __main__:run_benchmarks:29 - Completed in 30.10s (Success: False)
+2025-07-15 01:28:41.455 | INFO     | __main__:run_benchmarks:25 - 
+=== Running Scenario: Maze 10x10 ===
+2025-07-15 01:28:47.808 | INFO     | __main__:_run_saam_navigation:83 - Step 1 plan confidence: 0.80
+2025-07-15 01:28:47.808 | WARNING  | __main__:_run_saam_navigation:95 - Recovery #1 at step 1: Action failed: Boundary violation at [-2, 0]
+2025-07-15 01:28:54.114 | INFO     | __main__:_run_saam_navigation:83 - Step 2 plan confidence: 0.80
+2025-07-15 01:28:54.114 | WARNING  | __main__:_run_saam_navigation:95 - Recovery #2 at step 2: Action failed: Boundary violation at [-2, 0]
+2025-07-15 01:28:59.731 | INFO     | __main__:_run_saam_navigation:83 - Step 3 plan confidence: 0.80
+2025-07-15 01:28:59.731 | WARNING  | __main__:_run_saam_navigation:95 - Recovery #3 at step 3: Action failed: Boundary violation at [-2, 0]
+2025-07-15 01:40:21.585 | INFO     | saam_robot_navigator:__init__:28 - SAAM Controller initialized
+2025-07-15 01:40:21.896 | INFO     | saam_robot_navigator:__init__:99 - SAAM Navigator initialized
+2025-07-15 01:40:21.896 | INFO     | __main__:__init__:21 - SAAM Benchmark Runner initialized
+2025-07-15 01:40:21.896 | INFO     | __main__:run_benchmarks:25 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-15 01:43:23.706 | INFO     | saam_robot_navigator:__init__:28 - SAAM Controller initialized
+2025-07-15 01:43:24.010 | INFO     | saam_robot_navigator:__init__:99 - SAAM Navigator initialized
+2025-07-15 01:43:24.010 | INFO     | __main__:__init__:21 - SAAM Benchmark Runner initialized
+2025-07-15 01:43:24.010 | INFO     | __main__:run_benchmarks:25 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-15 02:21:56.860 | INFO     | saam_robot_navigator:__init__:55 - SAAM Controller initialized
+2025-07-15 02:21:57.170 | INFO     | saam_robot_navigator:__init__:128 - SAAM Navigator initialized
+2025-07-15 02:21:57.170 | INFO     | __main__:__init__:24 - SAAM Benchmark Runner initialized
+2025-07-15 02:21:57.170 | INFO     | __main__:run_benchmarks:28 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-15 02:24:13.169 | INFO     | saam_robot_navigator:__init__:55 - SAAM Controller initialized
+2025-07-15 02:24:13.478 | INFO     | saam_robot_navigator:__init__:128 - SAAM Navigator initialized
+2025-07-15 02:24:13.478 | INFO     | __main__:__init__:24 - SAAM Benchmark Runner initialized
+2025-07-15 02:24:13.478 | INFO     | __main__:run_benchmarks:28 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-15 02:24:13.479 | WARNING  | __main__:_run_saam_navigation:110 - Step 1 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.479 | WARNING  | __main__:_run_saam_navigation:110 - Step 2 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.479 | WARNING  | __main__:_run_saam_navigation:110 - Step 3 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.479 | WARNING  | __main__:_run_saam_navigation:110 - Step 4 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.479 | WARNING  | __main__:_run_saam_navigation:110 - Step 5 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.479 | WARNING  | __main__:_run_saam_navigation:110 - Step 6 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.480 | WARNING  | __main__:_run_saam_navigation:110 - Step 7 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.480 | WARNING  | __main__:_run_saam_navigation:110 - Step 8 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.480 | WARNING  | __main__:_run_saam_navigation:110 - Step 9 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.480 | WARNING  | __main__:_run_saam_navigation:110 - Step 10 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.480 | WARNING  | __main__:_run_saam_navigation:110 - Step 11 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.480 | WARNING  | __main__:_run_saam_navigation:110 - Step 12 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.480 | WARNING  | __main__:_run_saam_navigation:110 - Step 13 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.480 | WARNING  | __main__:_run_saam_navigation:110 - Step 14 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.480 | WARNING  | __main__:_run_saam_navigation:110 - Step 15 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.480 | WARNING  | __main__:_run_saam_navigation:110 - Step 16 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.480 | WARNING  | __main__:_run_saam_navigation:110 - Step 17 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.480 | WARNING  | __main__:_run_saam_navigation:110 - Step 18 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 19 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 20 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 21 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 22 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 23 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 24 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 25 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 26 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 27 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 28 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 29 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 30 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 31 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.481 | WARNING  | __main__:_run_saam_navigation:110 - Step 32 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.482 | WARNING  | __main__:_run_saam_navigation:110 - Step 33 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.482 | WARNING  | __main__:_run_saam_navigation:110 - Step 34 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.482 | WARNING  | __main__:_run_saam_navigation:110 - Step 35 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.482 | WARNING  | __main__:_run_saam_navigation:110 - Step 36 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.482 | WARNING  | __main__:_run_saam_navigation:110 - Step 37 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.482 | WARNING  | __main__:_run_saam_navigation:110 - Step 38 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.482 | WARNING  | __main__:_run_saam_navigation:110 - Step 39 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.482 | WARNING  | __main__:_run_saam_navigation:110 - Step 40 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.482 | WARNING  | __main__:_run_saam_navigation:110 - Step 41 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.482 | WARNING  | __main__:_run_saam_navigation:110 - Step 42 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.482 | WARNING  | __main__:_run_saam_navigation:110 - Step 43 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.482 | WARNING  | __main__:_run_saam_navigation:110 - Step 44 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.483 | WARNING  | __main__:_run_saam_navigation:110 - Step 45 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.483 | WARNING  | __main__:_run_saam_navigation:110 - Step 46 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.483 | WARNING  | __main__:_run_saam_navigation:110 - Step 47 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.483 | WARNING  | __main__:_run_saam_navigation:110 - Step 48 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.483 | WARNING  | __main__:_run_saam_navigation:110 - Step 49 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.483 | WARNING  | __main__:_run_saam_navigation:110 - Step 50 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.483 | SUCCESS  | __main__:run_benchmarks:33 - Scenario FAIL in 0.00s (Steps: 50, Confidence: 0.00)
+2025-07-15 02:24:13.483 | INFO     | __main__:run_benchmarks:28 - 
+=== Running Scenario: Maze 10x10 ===
+2025-07-15 02:24:13.484 | WARNING  | __main__:_run_saam_navigation:110 - Step 1 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.484 | WARNING  | __main__:_run_saam_navigation:110 - Step 2 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.484 | WARNING  | __main__:_run_saam_navigation:110 - Step 3 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.484 | WARNING  | __main__:_run_saam_navigation:110 - Step 4 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.484 | WARNING  | __main__:_run_saam_navigation:110 - Step 5 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.484 | WARNING  | __main__:_run_saam_navigation:110 - Step 6 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.484 | WARNING  | __main__:_run_saam_navigation:110 - Step 7 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.484 | WARNING  | __main__:_run_saam_navigation:110 - Step 8 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.484 | WARNING  | __main__:_run_saam_navigation:110 - Step 9 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.484 | WARNING  | __main__:_run_saam_navigation:110 - Step 10 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.484 | WARNING  | __main__:_run_saam_navigation:110 - Step 11 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.484 | WARNING  | __main__:_run_saam_navigation:110 - Step 12 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.484 | WARNING  | __main__:_run_saam_navigation:110 - Step 13 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 14 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 15 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 16 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 17 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 18 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 19 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 20 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 21 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 22 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 23 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 24 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 25 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 26 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.485 | WARNING  | __main__:_run_saam_navigation:110 - Step 27 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 28 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 29 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 30 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 31 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 32 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 33 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 34 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 35 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 36 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 37 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 38 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 39 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 40 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.486 | WARNING  | __main__:_run_saam_navigation:110 - Step 41 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.487 | WARNING  | __main__:_run_saam_navigation:110 - Step 42 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.487 | WARNING  | __main__:_run_saam_navigation:110 - Step 43 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.487 | WARNING  | __main__:_run_saam_navigation:110 - Step 44 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.487 | WARNING  | __main__:_run_saam_navigation:110 - Step 45 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.487 | WARNING  | __main__:_run_saam_navigation:110 - Step 46 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.487 | WARNING  | __main__:_run_saam_navigation:110 - Step 47 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.487 | WARNING  | __main__:_run_saam_navigation:110 - Step 48 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.487 | WARNING  | __main__:_run_saam_navigation:110 - Step 49 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.487 | WARNING  | __main__:_run_saam_navigation:110 - Step 50 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.487 | SUCCESS  | __main__:run_benchmarks:33 - Scenario FAIL in 0.00s (Steps: 50, Confidence: 0.00)
+2025-07-15 02:24:13.487 | INFO     | __main__:run_benchmarks:28 - 
+=== Running Scenario: SAAM Recovery Test ===
+2025-07-15 02:24:13.488 | WARNING  | __main__:_run_saam_navigation:110 - Step 1 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.488 | WARNING  | __main__:_run_saam_navigation:110 - Step 2 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.488 | WARNING  | __main__:_run_saam_navigation:110 - Step 3 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.488 | WARNING  | __main__:_run_saam_navigation:110 - Step 4 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.488 | WARNING  | __main__:_run_saam_navigation:110 - Step 5 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.488 | WARNING  | __main__:_run_saam_navigation:110 - Step 6 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.488 | WARNING  | __main__:_run_saam_navigation:110 - Step 7 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.488 | WARNING  | __main__:_run_saam_navigation:110 - Step 8 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.488 | WARNING  | __main__:_run_saam_navigation:110 - Step 9 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.488 | WARNING  | __main__:_run_saam_navigation:110 - Step 10 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.488 | WARNING  | __main__:_run_saam_navigation:110 - Step 11 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.488 | WARNING  | __main__:_run_saam_navigation:110 - Step 12 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.488 | WARNING  | __main__:_run_saam_navigation:110 - Step 13 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 14 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 15 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 16 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 17 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 18 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 19 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 20 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 21 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 22 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 23 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 24 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 25 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 26 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.489 | WARNING  | __main__:_run_saam_navigation:110 - Step 27 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 28 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 29 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 30 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 31 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 32 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 33 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 34 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 35 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 36 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 37 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 38 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 39 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 40 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 41 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.490 | WARNING  | __main__:_run_saam_navigation:110 - Step 42 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.491 | WARNING  | __main__:_run_saam_navigation:110 - Step 43 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.491 | WARNING  | __main__:_run_saam_navigation:110 - Step 44 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.491 | WARNING  | __main__:_run_saam_navigation:110 - Step 45 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.491 | WARNING  | __main__:_run_saam_navigation:110 - Step 46 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.491 | WARNING  | __main__:_run_saam_navigation:110 - Step 47 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.491 | WARNING  | __main__:_run_saam_navigation:110 - Step 48 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.491 | WARNING  | __main__:_run_saam_navigation:110 - Step 49 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.491 | WARNING  | __main__:_run_saam_navigation:110 - Step 50 error: 'str' object has no attribute 'value'
+2025-07-15 02:24:13.491 | SUCCESS  | __main__:run_benchmarks:33 - Scenario FAIL in 0.00s (Steps: 50, Confidence: 0.00)
+2025-07-15 02:27:46.569 | INFO     | saam_robot_navigator:__init__:55 - SAAM Controller initialized
+2025-07-15 02:27:46.880 | INFO     | saam_robot_navigator:__init__:128 - SAAM Navigator initialized
+2025-07-15 02:27:46.881 | INFO     | __main__:__init__:24 - SAAM Benchmark Runner initialized
+2025-07-15 02:27:46.888 | INFO     | __main__:run_benchmarks:28 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-15 02:27:46.888 | WARNING  | __main__:_run_saam_navigation:110 - Step 1 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.888 | WARNING  | __main__:_run_saam_navigation:110 - Step 2 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.888 | WARNING  | __main__:_run_saam_navigation:110 - Step 3 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.888 | WARNING  | __main__:_run_saam_navigation:110 - Step 4 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 5 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 6 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 7 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 8 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 9 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 10 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 11 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 12 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 13 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 14 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 15 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 16 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 17 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.889 | WARNING  | __main__:_run_saam_navigation:110 - Step 18 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 19 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 20 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 21 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 22 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 23 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 24 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 25 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 26 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 27 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 28 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 29 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 30 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 31 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 32 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 33 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.890 | WARNING  | __main__:_run_saam_navigation:110 - Step 34 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 35 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 36 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 37 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 38 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 39 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 40 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 41 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 42 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 43 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 44 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 45 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 46 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 47 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 48 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 49 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.891 | WARNING  | __main__:_run_saam_navigation:110 - Step 50 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.892 | SUCCESS  | __main__:run_benchmarks:33 - Scenario FAIL in 0.00s (Steps: 50, Confidence: 0.00)
+2025-07-15 02:27:46.892 | INFO     | __main__:run_benchmarks:28 - 
+=== Running Scenario: Maze 10x10 ===
+2025-07-15 02:27:46.892 | WARNING  | __main__:_run_saam_navigation:110 - Step 1 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.892 | WARNING  | __main__:_run_saam_navigation:110 - Step 2 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.892 | WARNING  | __main__:_run_saam_navigation:110 - Step 3 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.892 | WARNING  | __main__:_run_saam_navigation:110 - Step 4 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.892 | WARNING  | __main__:_run_saam_navigation:110 - Step 5 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.892 | WARNING  | __main__:_run_saam_navigation:110 - Step 6 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 7 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 8 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 9 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 10 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 11 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 12 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 13 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 14 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 15 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 16 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 17 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 18 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 19 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 20 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 21 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 22 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.893 | WARNING  | __main__:_run_saam_navigation:110 - Step 23 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 24 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 25 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 26 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 27 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 28 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 29 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 30 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 31 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 32 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 33 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 34 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 35 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 36 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 37 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 38 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.894 | WARNING  | __main__:_run_saam_navigation:110 - Step 39 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.895 | WARNING  | __main__:_run_saam_navigation:110 - Step 40 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.895 | WARNING  | __main__:_run_saam_navigation:110 - Step 41 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.895 | WARNING  | __main__:_run_saam_navigation:110 - Step 42 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.895 | WARNING  | __main__:_run_saam_navigation:110 - Step 43 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.895 | WARNING  | __main__:_run_saam_navigation:110 - Step 44 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.895 | WARNING  | __main__:_run_saam_navigation:110 - Step 45 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.895 | WARNING  | __main__:_run_saam_navigation:110 - Step 46 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.895 | WARNING  | __main__:_run_saam_navigation:110 - Step 47 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.895 | WARNING  | __main__:_run_saam_navigation:110 - Step 48 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.895 | WARNING  | __main__:_run_saam_navigation:110 - Step 49 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.895 | WARNING  | __main__:_run_saam_navigation:110 - Step 50 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.895 | SUCCESS  | __main__:run_benchmarks:33 - Scenario FAIL in 0.00s (Steps: 50, Confidence: 0.00)
+2025-07-15 02:27:46.895 | INFO     | __main__:run_benchmarks:28 - 
+=== Running Scenario: SAAM Recovery Test ===
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 1 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 2 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 3 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 4 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 5 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 6 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 7 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 8 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 9 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 10 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 11 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 12 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 13 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 14 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.896 | WARNING  | __main__:_run_saam_navigation:110 - Step 15 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 16 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 17 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 18 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 19 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 20 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 21 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 22 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 23 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 24 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 25 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 26 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 27 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 28 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 29 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 30 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.897 | WARNING  | __main__:_run_saam_navigation:110 - Step 31 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 32 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 33 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 34 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 35 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 36 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 37 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 38 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 39 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 40 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 41 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 42 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 43 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 44 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 45 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 46 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 47 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.898 | WARNING  | __main__:_run_saam_navigation:110 - Step 48 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.899 | WARNING  | __main__:_run_saam_navigation:110 - Step 49 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.899 | WARNING  | __main__:_run_saam_navigation:110 - Step 50 error: 'str' object has no attribute 'value'
+2025-07-15 02:27:46.899 | SUCCESS  | __main__:run_benchmarks:33 - Scenario FAIL in 0.00s (Steps: 50, Confidence: 0.00)
+2025-07-15 03:01:38.374 | INFO     | saam_robot_navigator:__init__:55 - SAAM Controller initialized
+2025-07-15 03:01:38.678 | INFO     | saam_robot_navigator:__init__:128 - SAAM Navigator initialized
+2025-07-15 03:01:38.678 | INFO     | __main__:__init__:24 - SAAM Benchmark Runner initialized
+2025-07-15 03:01:38.678 | INFO     | __main__:run_benchmarks:28 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-15 03:04:06.986 | ERROR    | saam_robot_navigator:plan_route:299 - Route planning failed: 'cells'
+2025-07-15 03:04:06.986 | INFO     | __main__:_run_saam_navigation:93 - Step 1 plan confidence: 0.10
+2025-07-15 03:07:54.898 | INFO     | saam_robot_navigator:__init__:55 - SAAM Controller initialized
+2025-07-15 03:07:55.205 | INFO     | saam_robot_navigator:__init__:128 - SAAM Navigator initialized
+2025-07-15 03:07:55.205 | INFO     | __main__:__init__:24 - SAAM Benchmark Runner initialized
+2025-07-15 03:07:55.205 | INFO     | __main__:run_benchmarks:28 - 
+=== Running Scenario: Simple 5x5 ===
+2025-07-15 03:09:37.508 | INFO     | saam_robot_navigator:__init__:55 - SAAM Controller initialized
+2025-07-15 03:09:37.816 | INFO     | saam_robot_navigator:__init__:128 - SAAM Navigator initialized
+2025-07-15 03:09:37.816 | INFO     | __main__:__init__:24 - SAAM Benchmark Runner initialized
+2025-07-15 03:09:37.816 | INFO     | __main__:run_benchmarks:28 - 
+=== Running Scenario: Simple 5x5 ===

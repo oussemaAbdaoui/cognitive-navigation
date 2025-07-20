@@ -1,0 +1,336 @@
+#!/usr/bin/env python3
+import math
+from math import radians, degrees, cos, sin
+import json
+import time
+import os
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import SystemMessage, HumanMessage
+
+class RobotKernel:
+    def __init__(self, target, cm_per_cell=10, max_range=300, emergency_threshold=1,
+                 N=5, K=10, dt=0.1, k=0.1, L=20, llm_call_interval=2, model_name="gemma3n:e2b", temperature=0.0, max_tokens=15):
+        # Initialize state
+        self.x = 0.0  # cm
+        self.y = 0.0
+        self.theta = 0.0  # degrees
+        self.grid_x = 0
+        self.grid_y = 0
+        self.target = target  # (tx, ty) in grid coordinates
+        self.sub_goal = None
+        self.obstacle_map = set()  # set of (i,j) grid cells that are occupied
+        self.movement_history = []  # list of (grid_x, grid_y, theta, steps)
+        self.steps = 0
+        self.last_motor_speeds = (0, 0)  # (left, right)
+        self.loop_detected = False
+        self.model_name = model_name
+        self.temperature = temperature
+
+        # Parameters
+        self.K = K  # history length for loop detection
+        self.N = 2  # macro step interval
+        self.cm_per_cell = cm_per_cell
+        self.max_range = max_range
+        self.emergency_threshold = 1
+        self.dt = dt
+        self.k = k
+        self.L = L
+        self.llm_call_interval = llm_call_interval
+        self.openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
+        if not self.openrouter_api_key:
+            raise ValueError("OPENROUTER_API_KEY environment variable not set")
+
+        # Initialize LangChain model
+        self.llm = ChatOpenAI(
+            model=model_name,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            openai_api_base="https://openrouter.ai/api/v1",
+            openai_api_key=self.openrouter_api_key,
+            timeout=30.0,
+            default_headers={
+                "HTTP-Referer": "https://your-site.com",
+                "X-Title": "Robot Navigation System"
+            }
+        )
+
+    def update_position(self):
+        """Update robot position using dead reckoning from last motor speeds"""
+        left_speed, right_speed = self.last_motor_speeds
+        v_left = left_speed * self.k  # cm/s
+        v_right = right_speed * self.k
+        v = (v_left + v_right) / 2.0
+        omega = (v_right - v_left) / self.L  # rad/s
+
+        theta_rad = radians(self.theta)
+        self.x += v * cos(theta_rad) * self.dt
+        self.y += v * sin(theta_rad) * self.dt
+        self.theta = (self.theta + degrees(omega * self.dt)) % 360
+
+        # Update grid position
+        self.grid_x = round(self.x / self.cm_per_cell)
+        self.grid_y = round(self.y / self.cm_per_cell)
+
+    def update_obstacle_map(self, sensor_values):
+        """Update obstacle map based on sensor readings"""
+        sensor_directions = {
+            'front': self.theta,
+            'left': (self.theta + 90) % 360,
+            'right': (self.theta - 90) % 360
+        }
+
+        for sensor_name, direction in sensor_directions.items():
+            reading = sensor_values[sensor_name]
+            if reading < self.max_range:
+                angle_rad = radians(direction)
+                x_end = self.x + reading * cos(angle_rad)
+                y_end = self.y + reading * sin(angle_rad)
+                grid_x_end = round(x_end / self.cm_per_cell)
+                grid_y_end = round(y_end / self.cm_per_cell)
+                self.obstacle_map.add((grid_x_end, grid_y_end))
+
+    def update_history_and_detect_loop(self):
+        """Update movement history and detect loops"""
+        self.movement_history.append((self.grid_x, self.grid_y, self.theta, self.steps))
+
+        # Trim to last K entries
+        if len(self.movement_history) > self.K:
+            self.movement_history.pop(0)
+
+        # Check for loops in history (excluding current entry)
+        current_state = (self.grid_x, self.grid_y, self.theta)
+        self.loop_detected = any(
+            (state[0] == current_state[0] and
+             state[1] == current_state[1] and
+             state[2] == current_state[2])
+            for state in self.movement_history[:-1]
+        )
+
+    def simulate_next_step(self, left_speed, right_speed):
+        """Predict next position based on motor speeds"""
+        v_left = left_speed * self.k
+        v_right = right_speed * self.k
+        v = (v_left + v_right) / 2.0
+        omega = (v_right - v_left) / self.L
+        theta_rad = radians(self.theta)
+
+        next_x = self.x + v * cos(theta_rad) * self.dt
+        next_y = self.y + v * sin(theta_rad) * self.dt
+        next_grid_x = round(next_x / self.cm_per_cell)
+        next_grid_y = round(next_y / self.cm_per_cell)
+
+        return next_grid_x, next_grid_y
+
+    def run_step(self, sensor_values):
+        """Execute one full control cycle with corrected execution order"""
+        # 1. Check emergency condition FIRST (using current position)
+        emergency_occurred = min(sensor_values.values()) < self.emergency_threshold
+        force_llm_call = emergency_occurred
+
+        # 2. Update obstacle map BEFORE position update (sensors read at current position)
+        self.update_obstacle_map(sensor_values)
+
+        # 3. Update position using dead reckoning
+        self.update_position()
+
+        # 4. Update movement history and detect loops
+        self.update_history_and_detect_loop()
+
+        # 5. Determine if we need to call LLM
+        is_macro_step = (self.steps % self.N == 0)
+        call_llm = (
+            force_llm_call or
+            is_macro_step or
+            (self.steps % self.llm_call_interval == 0)
+        )
+
+        # 6. Handle LLM call if needed
+        if call_llm:
+            # Build prompt
+            prompt = self._build_prompt(sensor_values, is_macro_step)
+
+            # Call LLM and parse response
+            response = self._call_llm(prompt)
+            print(f"LLM response: {response}")
+            if is_macro_step:
+                new_left_speed, new_right_speed, self.sub_goal = self._parse_macro_response(response)
+            else:
+                new_left_speed, new_right_speed = self._parse_micro_response(response)
+
+            # Clamp motor speeds to valid range [-250, 250]
+            new_left_speed = max(min(new_left_speed, 250), -250)
+            new_right_speed = max(min(new_right_speed, 250), -250)
+        else:
+            # Use last motor speeds if not calling LLM
+            new_left_speed, new_right_speed = self.last_motor_speeds
+
+        # 7. Predictive safety check
+        next_grid_x, next_grid_y = self.simulate_next_step(new_left_speed, new_right_speed)
+        if (next_grid_x, next_grid_y) in self.obstacle_map:
+            new_left_speed, new_right_speed = 0, 0  # Stop before collision
+
+        # 8. Emergency override (FINAL safety net)
+        if emergency_occurred:
+            new_left_speed, new_right_speed = 0, 0  # Immediate stop
+
+        # 9. Update system state
+        self.last_motor_speeds = (new_left_speed, new_right_speed)
+        self.steps += 1
+
+        return new_left_speed, new_right_speed
+
+    def _build_prompt(self, sensor_values, is_macro_step):
+        """Construct detailed LLM prompt with enhanced clarity and structure"""
+        # Build core state information with improved organization
+        state_info = (
+            "=== ROBOT NAVIGATION CONTROL SYSTEM ===\n"
+            "**ROLE**: You are an autonomous navigation controller for a differential drive robot.\n"
+            f"**GRID SCALE**: Each cell = {self.cm_per_cell}cm\n\n"
+
+            "**MOVEMENT PHYSICS**:\n"
+            "- Wheel speed range: [-250, 250] (negative=reverse)\n"
+            "- LEFT wheel speed > RIGHT wheel speed: Turns RIGHT\n"
+            "- RIGHT wheel speed > LEFT wheel speed: Turns LEFT\n"
+            "- Equal speeds: Move straight\n"
+            "- Full stop: (0, 0)\n\n"
+
+            "**CURRENT STATE**:\n"
+            f"- Step: {self.steps}\n"
+            f"- Grid Position: ({self.grid_x}, {self.grid_y})\n"
+            f"- Orientation: {self.theta}° (0°=East, 90°=North, 180°=West, 270°=South)\n"
+            f"- Final Target: {self.target} (grid coordinates)\n"
+            f"- Active Sub-goal: {self.sub_goal or 'None'}\n"
+            f"- Last Motor Speeds: L={self.last_motor_speeds[0]}, R={self.last_motor_speeds[1]}\n\n"
+
+            "**SENSOR READINGS**:\n"
+            f"- FRONT: {sensor_values['front']} cm\n"
+            f"- LEFT: {sensor_values['left']} cm\n"
+            f"- RIGHT: {sensor_values['right']} cm\n"
+            f"(EMERGENCY THRESHOLD: <{self.emergency_threshold} cm)\n\n"
+
+            "**ENVIRONMENT STATUS**:\n"
+            f"- Known Obstacles:\n{self._format_obstacles()}\n"
+            f"- Recent Path History (last {self.K} positions):\n{self._format_history()}\n"
+            f"- LOOP DETECTION: {'ACTIVE - RESOLVE IMMEDIATELY' if self.loop_detected else 'Inactive'}\n"
+        )
+
+        # Add task-specific instructions with clear formatting rules
+        if is_macro_step:
+            return (
+                f"{state_info}\n"
+                "=== MACRO COMMAND REQUIRED (EVERY {self.N} STEPS) ===\n"
+                "**TASK**:\n"
+                "1. Set NEW SUB-GOAL (grid coordinate)\n"
+                "2. Set motor speeds for initial movement\n"
+                "**CRITICAL RULES**:\n"
+                "- Sub-goal MUST be closer to final target than current position\n"
+                "- Sub-goal MUST avoid known obstacles (marked 'X')\n"
+                "- If loop detected, CHOOSE DIFFERENT PATH\n"
+                "- Resolve emergencies before planning\n\n"
+
+                "**OUTPUT FORMAT**:\n"
+                "  [sub_goal_x] [sub_goal_y] [left_speed] [right_speed]\n"
+                "**STRICT REQUIREMENTS**:\n"
+                "- Output EXACTLY 4 numbers separated by spaces\n"
+                "- NO additional text/comments/formatting\n"
+                "- Example valid response: '5 8 100 100'\n\n"
+
+                "**SAFETY FALLBACK**:\n"
+                "If uncertain or unsafe, output: '0 0 0 0' (full stop)"
+            )
+        else:
+            return (
+                f"{state_info}\n"
+                "=== MICRO COMMAND REQUIRED ===\n"
+                "**TASK**:\n"
+                f"Execute immediate movement toward {'sub-goal ' + str(self.sub_goal) if self.sub_goal else 'final target'}\n"
+                "**CRITICAL RULES**:\n"
+                "- Prioritize obstacle avoidance over speed\n"
+                "- Maintain safe distance from walls\n"
+                "- Smooth speed transitions preferred\n"
+                "- Resolve emergencies immediately\n\n"
+
+                "**OUTPUT FORMAT**:\n"
+                "  [left_speed] [right_speed]\n"
+                "**STRICT REQUIREMENTS**:\n"
+                "- Output EXACTLY 2 numbers separated by space\n"
+                "- NO additional text/comments/formatting\n"
+                "- Example valid response: '150 130'\n\n"
+
+                "**SAFETY FALLBACK**:\n"
+                "If uncertain or unsafe, output: '0 0' (full stop)"
+            )
+
+    def _format_obstacles(self):
+        """Format obstacle map visually around current position"""
+        if not self.obstacle_map:
+            return "None"
+
+        # Create 5x5 grid centered on robot
+        grid = [["." for _ in range(5)] for _ in range(5)]
+        origin_x, origin_y = self.grid_x - 2, self.grid_y - 2
+
+        # Mark obstacles
+        for dx in range(5):
+            for dy in range(5):
+                x = origin_x + dx
+                y = origin_y + dy
+                if (x, y) in self.obstacle_map:
+                    grid[dy][dx] = "X"
+
+        # Mark robot position
+        grid[2][2] = "R"
+        return "\n" + "\n".join(" ".join(row) for row in grid)
+
+    def _format_history(self):
+        """Format last K positions with step counts"""
+        if not self.movement_history:
+            return "None"
+        return "; ".join(
+            f"({x},{y} @ step {step})"
+            for x, y, _, step in self.movement_history[-self.K:]
+        )
+
+    def _call_llm(self, prompt):
+        """Call LLM using LangChain with structured messages"""
+        messages = [
+            SystemMessage(
+                content="You are an AI that controls robot navigation. "
+                        "Provide concise, numerical responses in the exact format requested."
+            ),
+            HumanMessage(content=prompt)
+        ]
+
+        try:
+            response = self.llm.invoke(messages)
+            return response.content.strip()
+        except Exception as e:
+            print(f"LangChain API error: {e}")
+            # Return safe default based on context
+            if "MACRO COMMAND REQUIRED" in prompt:
+                return "0 0 0 0"
+            else:
+                return "0 0"
+
+    def _parse_macro_response(self, response):
+        """Parse LLM response for macro steps"""
+        parts = response.split()
+        try:
+            if len(parts) >= 4:
+                sub_goal = (int(parts[0]), int(parts[1]))
+                left_speed = float(parts[2])
+                right_speed = float(parts[3])
+                return left_speed, right_speed, sub_goal
+        except (ValueError, IndexError):
+            pass
+        return 0, 0, self.sub_goal  # Default to stop and keep current sub-goal
+
+    def _parse_micro_response(self, response):
+        """Parse LLM response for micro steps"""
+        parts = response.split()
+        try:
+            if len(parts) >= 2:
+                return float(parts[0]), float(parts[1])
+        except (ValueError, IndexError):
+            pass
+        return 0, 0  # Default to stop

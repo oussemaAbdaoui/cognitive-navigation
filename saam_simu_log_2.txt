@@ -1,0 +1,494 @@
+Starting SAAM simulation: Navigation Test
+Grid size: 10 rows x 10 columns
+Start: row=0, col=0 facing=RIGHT
+Target: row=6, col=5
+Obstacles: [(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (2, 5), (3, 5), (4, 5), (5, 5), (3, 3), (4, 3), (5, 3), (6, 3), (0, 7), (1, 7), (2, 7), (3, 7), (4, 7), (7, 0), (7, 1), (7, 2), (7, 3), (7, 4), (7, 5)]
+
+--- Step 1 ---
+Position: [0, 0] Facing: RIGHT
+Sensors: F=210.0cm, L=350.0cm, R=210.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [0, 1],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Action validation failed - regenerating internally
+Move forward at speed 20 cm/s for 1.5 seconds
+Motors: L=120, R=120
+LLM Response Time: 2.37s
+
+--- Step 2 ---
+Position: [0, 1] Facing: RIGHT
+Sensors: F=180.0cm, L=350.0cm, R=30.0cm
+Waypoint: [0, 1]
+Path: []
+LLM Response: {
+  "next_waypoint": [0, 2],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Action validation failed - regenerating internally
+Move forward at speed 20 cm/s for 1.5 seconds
+Motors: L=120, R=120
+LLM Response Time: 2.21s
+
+--- Step 3 ---
+Position: [0, 2] Facing: RIGHT
+Sensors: F=150.0cm, L=350.0cm, R=30.0cm
+Waypoint: [0, 2]
+Path: []
+LLM Response: {
+  "next_waypoint": [0, 3],
+  "actions": [
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Action validation failed - regenerating internally
+Move forward at speed 20 cm/s for 1.5 seconds
+Motors: L=120, R=120
+LLM Response Time: 2.17s
+
+==============================
+Navigation Grid (Step 3)
+==============================
+ 0 · · · → · · · ■ · · 
+ 1 · ■ ■ ■ ■ ■ · ■ · · 
+ 2 · · · · · ■ · ■ · · 
+ 3 · · · ■ · ■ · ■ · · 
+ 4 · · · ■ · ■ · ■ · · 
+ 5 · · · ■ · ■ · · · · 
+ 6 · · · ■ · ★ · · · · 
+ 7 ■ ■ ■ ■ ■ ■ · · · · 
+ 8 · · · · · · · · · · 
+ 9 · · · · · · · · · · 
+     0  1  2  3  4  5  6  7  8  9 
+==============================
+Robot: (0, 3) RIGHT
+Target: (6, 5)
+Waypoint: [0, 3]
+==============================
+
+--- Step 4 ---
+Position: [0, 3] Facing: RIGHT
+Sensors: F=120.0cm, L=350.0cm, R=30.0cm
+Waypoint: [0, 3]
+Path: []
+LLM Response: {
+  "next_waypoint": [0, 4],
+  "actions": [
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 2.0}
+  ]
+}
+Action validation failed - regenerating internally
+Move forward at speed 20 cm/s for 1.5 seconds
+Motors: L=120, R=120
+LLM Response Time: 2.00s
+
+--- Step 5 ---
+Position: [0, 4] Facing: RIGHT
+Sensors: F=90.0cm, L=350.0cm, R=30.0cm
+Waypoint: [0, 4]
+Path: []
+LLM Response: {
+  "next_waypoint": [0, 5],
+  "actions": [
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Action validation failed - regenerating internally
+Move forward at speed 20 cm/s for 1.5 seconds
+Motors: L=120, R=120
+LLM Response Time: 2.31s
+
+--- Step 6 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: [0, 5]
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.26s
+
+==============================
+Navigation Grid (Step 6)
+==============================
+ 0 · · · · · → · ■ · · 
+ 1 · ■ ■ ■ ■ ■ · ■ · · 
+ 2 · · · · · ■ · ■ · · 
+ 3 · · · ■ · ■ · ■ · · 
+ 4 · · · ■ · ■ · ■ · · 
+ 5 · · · ■ · ■ · · · · 
+ 6 · · · ■ · ★ · · · · 
+ 7 ■ ■ ■ ■ ■ ■ · · · · 
+ 8 · · · · · · · · · · 
+ 9 · · · · · · · · · · 
+     0  1  2  3  4  5  6  7  8  9 
+==============================
+Robot: (0, 5) RIGHT
+Target: (6, 5)
+Waypoint: None
+==============================
+
+--- Step 7 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.55s
+
+--- Step 8 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.62s
+
+--- Step 9 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.26s
+
+==============================
+Navigation Grid (Step 9)
+==============================
+ 0 · · · · · → · ■ · · 
+ 1 · ■ ■ ■ ■ ■ · ■ · · 
+ 2 · · · · · ■ · ■ · · 
+ 3 · · · ■ · ■ · ■ · · 
+ 4 · · · ■ · ■ · ■ · · 
+ 5 · · · ■ · ■ · · · · 
+ 6 · · · ■ · ★ · · · · 
+ 7 ■ ■ ■ ■ ■ ■ · · · · 
+ 8 · · · · · · · · · · 
+ 9 · · · · · · · · · · 
+     0  1  2  3  4  5  6  7  8  9 
+==============================
+Robot: (0, 5) RIGHT
+Target: (6, 5)
+Waypoint: None
+==============================
+
+--- Step 10 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.62s
+
+--- Step 11 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.65s
+
+--- Step 12 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.62s
+
+==============================
+Navigation Grid (Step 12)
+==============================
+ 0 · · · · · → · ■ · · 
+ 1 · ■ ■ ■ ■ ■ · ■ · · 
+ 2 · · · · · ■ · ■ · · 
+ 3 · · · ■ · ■ · ■ · · 
+ 4 · · · ■ · ■ · ■ · · 
+ 5 · · · ■ · ■ · · · · 
+ 6 · · · ■ · ★ · · · · 
+ 7 ■ ■ ■ ■ ■ ■ · · · · 
+ 8 · · · · · · · · · · 
+ 9 · · · · · · · · · · 
+     0  1  2  3  4  5  6  7  8  9 
+==============================
+Robot: (0, 5) RIGHT
+Target: (6, 5)
+Waypoint: None
+==============================
+
+--- Step 13 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.61s
+
+--- Step 14 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.56s
+
+--- Step 15 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.54s
+
+==============================
+Navigation Grid (Step 15)
+==============================
+ 0 · · · · · → · ■ · · 
+ 1 · ■ ■ ■ ■ ■ · ■ · · 
+ 2 · · · · · ■ · ■ · · 
+ 3 · · · ■ · ■ · ■ · · 
+ 4 · · · ■ · ■ · ■ · · 
+ 5 · · · ■ · ■ · · · · 
+ 6 · · · ■ · ★ · · · · 
+ 7 ■ ■ ■ ■ ■ ■ · · · · 
+ 8 · · · · · · · · · · 
+ 9 · · · · · · · · · · 
+     0  1  2  3  4  5  6  7  8  9 
+==============================
+Robot: (0, 5) RIGHT
+Target: (6, 5)
+Waypoint: None
+==============================
+
+--- Step 16 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.53s
+
+--- Step 17 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.48s
+
+--- Step 18 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.45s
+
+==============================
+Navigation Grid (Step 18)
+==============================
+ 0 · · · · · → · ■ · · 
+ 1 · ■ ■ ■ ■ ■ · ■ · · 
+ 2 · · · · · ■ · ■ · · 
+ 3 · · · ■ · ■ · ■ · · 
+ 4 · · · ■ · ■ · ■ · · 
+ 5 · · · ■ · ■ · · · · 
+ 6 · · · ■ · ★ · · · · 
+ 7 ■ ■ ■ ■ ■ ■ · · · · 
+ 8 · · · · · · · · · · 
+ 9 · · · · · · · · · · 
+     0  1  2  3  4  5  6  7  8  9 
+==============================
+Robot: (0, 5) RIGHT
+Target: (6, 5)
+Waypoint: None
+==============================
+
+--- Step 19 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.23s
+
+--- Step 20 ---
+Position: [0, 5] Facing: RIGHT
+Sensors: F=60.0cm, L=350.0cm, R=30.0cm
+Waypoint: None
+Path: []
+LLM Response: {
+  "next_waypoint": [6, 5],
+  "actions": [
+    {"type": "TURN", "direction": "LEFT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0},
+    {"type": "TURN", "direction": "RIGHT"},
+    {"type": "MOVE", "direction": "FORWARD", "speed": 20, "time": 1.0}
+  ]
+}
+Invalid waypoint detected: [6, 5]
+No action this step. Robot stopped or waiting.
+LLM Response Time: 2.63s
+
+Simulation complete!
+Total steps: 20
+Final position: [0, 5]
+Position history: [(0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 5), (0, 5), (0, 5), (0, 5), (0, 5), (0, 5), (0, 5), (0, 5), (0, 5), (0, 5), (0, 5), (0, 5), (0, 5), (0, 5), (0, 5)]
+Obstacle Map:
+0 0 0 0 0 0 0 1 0 0
+0 1 1 1 1 1 0 1 0 0
+0 0 0 0 0 1 0 1 0 0
+0 0 0 1 0 1 0 1 0 0
+0 0 0 1 0 1 0 1 0 0
+0 0 0 1 0 1 0 0 0 0
+0 0 0 1 0 0 0 0 0 0
+1 1 1 1 1 1 0 0 0 0
+0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0

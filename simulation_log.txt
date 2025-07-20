@@ -1,0 +1,219 @@
+Starting dynamic simulation: Maze Navigation Test
+Grid size: 10x10 cells
+Target: [9, 9]
+Obstacles: 28
+Start position: (0, 0) @ 0°
+----------------------------------------------------------------------
+
+======================================================================
+=== NAVIGATION VIEW (Robot at 0,0) ===
+Target: (9, 9) | Orientation: 0.0° | Steps: 0
+======================================================================
+     | · ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ★
+y= 8 | · · · · · · · · · ▓
+     | · · · · · · · ▓ · ▓
+y= 6 | · · · · · · ▓ · ▓ ▓
+     | · · · · · ▓ · ▓ · ▓
+y= 4 | · · · · ▓ · ▓ · · ▓
+     | · · · ▓ · ▓ · · · ▓
+y= 2 | · · ▓ · ▓ · · · · ▓
+     | · · · ▓ · · · · · ▓
+y= 0 | → · · · · · · · · ·
+      0     2     4     6     8   
+
+LEGEND:
+→↑←↓ : Robot direction  ▓ : Obstacle
+░ : Detected obstacle  ★ : Target
+⓪-⑩ : Recent path (⓪ = newest)
+Detected obstacles: 0
+Loop detected: No
+Sub-goal: None
+Failed sub-goals: None
+======================================================================
+
+--- Step 1 ---
+Position: (0, 0) Orientation: 0.00°
+Sensors: F=31.6cm, L=90.6cm, R=300.0cm
+LangChain API error: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1751760000000'}, 'provider_name': None}}, 'user_id': 'user_2zR4TDJW6AZGbMO2IYm4mStNrop'}
+LLM response: 0 0 0 0
+Motors: L=0.0, R=0.0
+Sub-goal: (0, 0)
+Loop detected: False
+Obstacles mapped: 2
+LLM Response Time: 4.06s
+
+======================================================================
+=== NAVIGATION VIEW (Robot at 0,0) ===
+Target: (9, 9) | Orientation: 0.0° | Steps: 1
+======================================================================
+     | ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ★
+y= 8 | · · · · · · · · · ▓
+     | · · · · · · · ▓ · ▓
+y= 6 | · · · · · · ▓ · ▓ ▓
+     | · · · · · ▓ · ▓ · ▓
+y= 4 | · · · · ▓ · ▓ · · ▓
+     | · · · ▓ · ▓ · · · ▓
+y= 2 | · · ▓ · ▓ · · · · ▓
+     | · · · ▓ · · · · · ▓
+y= 0 | → · · ░ · · · · · ·
+      0     2     4     6     8   
+
+LEGEND:
+→↑←↓ : Robot direction  ▓ : Obstacle
+░ : Detected obstacle  ★ : Target
+⓪-⑩ : Recent path (⓪ = newest)
+Detected obstacles: 2
+Loop detected: No
+Sub-goal: (0, 0)
+Failed sub-goals: None
+======================================================================
+
+--- Step 2 ---
+Position: (0, 0) Orientation: 0.00°
+Sensors: F=31.6cm, L=90.6cm, R=300.0cm
+Motors: L=0.0, R=0.0
+Sub-goal: (0, 0)
+Loop detected: True
+Obstacles mapped: 2
+LLM Response Time: 0.00s
+
+======================================================================
+=== NAVIGATION VIEW (Robot at 0,0) ===
+Target: (9, 9) | Orientation: 0.0° | Steps: 2
+======================================================================
+     | ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ★
+y= 8 | · · · · · · · · · ▓
+     | · · · · · · · ▓ · ▓
+y= 6 | · · · · · · ▓ · ▓ ▓
+     | · · · · · ▓ · ▓ · ▓
+y= 4 | · · · · ▓ · ▓ · · ▓
+     | · · · ▓ · ▓ · · · ▓
+y= 2 | · · ▓ · ▓ · · · · ▓
+     | · · · ▓ · · · · · ▓
+y= 0 | → · · ░ · · · · · ·
+      0     2     4     6     8   
+
+LEGEND:
+→↑←↓ : Robot direction  ▓ : Obstacle
+░ : Detected obstacle  ★ : Target
+⓪-⑩ : Recent path (⓪ = newest)
+Detected obstacles: 2
+Loop detected: Yes
+Sub-goal: (0, 0)
+Failed sub-goals: None
+======================================================================
+
+--- Step 3 ---
+Position: (0, 0) Orientation: 0.00°
+Sensors: F=31.6cm, L=90.6cm, R=300.0cm
+Marking sub-goal (0, 0) as failed (stuck at (0, 0))
+LangChain API error: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1751760000000'}, 'provider_name': None}}, 'user_id': 'user_2zR4TDJW6AZGbMO2IYm4mStNrop'}
+LLM response: 0 0 0 0
+Rejected unsafe sub-goal: (0, 0)
+Motors: L=0.0, R=0.0
+Sub-goal: None
+Loop detected: True
+Obstacles mapped: 2
+LLM Response Time: 3.44s
+
+======================================================================
+=== NAVIGATION VIEW (Robot at 0,0) ===
+Target: (9, 9) | Orientation: 0.0° | Steps: 3
+======================================================================
+     | ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ★
+y= 8 | · · · · · · · · · ▓
+     | · · · · · · · ▓ · ▓
+y= 6 | · · · · · · ▓ · ▓ ▓
+     | · · · · · ▓ · ▓ · ▓
+y= 4 | · · · · ▓ · ▓ · · ▓
+     | · · · ▓ · ▓ · · · ▓
+y= 2 | · · ▓ · ▓ · · · · ▓
+     | · · · ▓ · · · · · ▓
+y= 0 | → · · ░ · · · · · ·
+      0     2     4     6     8   
+
+LEGEND:
+→↑←↓ : Robot direction  ▓ : Obstacle
+░ : Detected obstacle  ★ : Target
+⓪-⑩ : Recent path (⓪ = newest)
+Detected obstacles: 2
+Loop detected: Yes
+Sub-goal: None
+Failed sub-goals: {(0, 0)}
+======================================================================
+
+--- Step 4 ---
+Position: (0, 0) Orientation: 0.00°
+Sensors: F=31.6cm, L=90.6cm, R=300.0cm
+Motors: L=0.0, R=0.0
+Sub-goal: None
+Loop detected: True
+Obstacles mapped: 2
+LLM Response Time: 0.00s
+
+======================================================================
+=== NAVIGATION VIEW (Robot at 0,0) ===
+Target: (9, 9) | Orientation: 0.0° | Steps: 4
+======================================================================
+     | ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ★
+y= 8 | · · · · · · · · · ▓
+     | · · · · · · · ▓ · ▓
+y= 6 | · · · · · · ▓ · ▓ ▓
+     | · · · · · ▓ · ▓ · ▓
+y= 4 | · · · · ▓ · ▓ · · ▓
+     | · · · ▓ · ▓ · · · ▓
+y= 2 | · · ▓ · ▓ · · · · ▓
+     | · · · ▓ · · · · · ▓
+y= 0 | → · · ░ · · · · · ·
+      0     2     4     6     8   
+
+LEGEND:
+→↑←↓ : Robot direction  ▓ : Obstacle
+░ : Detected obstacle  ★ : Target
+⓪-⑩ : Recent path (⓪ = newest)
+Detected obstacles: 2
+Loop detected: Yes
+Sub-goal: None
+Failed sub-goals: {(0, 0)}
+======================================================================
+
+--- Step 5 ---
+Position: (0, 0) Orientation: 0.00°
+Sensors: F=31.6cm, L=90.6cm, R=300.0cm
+LangChain API error: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1751760000000'}, 'provider_name': None}}, 'user_id': 'user_2zR4TDJW6AZGbMO2IYm4mStNrop'}
+LLM response: 0 0
+Motors: L=0.0, R=0.0
+Sub-goal: None
+Loop detected: True
+Obstacles mapped: 2
+LLM Response Time: 3.42s
+
+======================================================================
+=== NAVIGATION VIEW (Robot at 0,0) ===
+Target: (9, 9) | Orientation: 0.0° | Steps: 5
+======================================================================
+     | ░ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ▓ ★
+y= 8 | · · · · · · · · · ▓
+     | · · · · · · · ▓ · ▓
+y= 6 | · · · · · · ▓ · ▓ ▓
+     | · · · · · ▓ · ▓ · ▓
+y= 4 | · · · · ▓ · ▓ · · ▓
+     | · · · ▓ · ▓ · · · ▓
+y= 2 | · · ▓ · ▓ · · · · ▓
+     | · · · ▓ · · · · · ▓
+y= 0 | → · · ░ · · · · · ·
+      0     2     4     6     8   
+
+LEGEND:
+→↑←↓ : Robot direction  ▓ : Obstacle
+░ : Detected obstacle  ★ : Target
+⓪-⑩ : Recent path (⓪ = newest)
+Detected obstacles: 2
+Loop detected: Yes
+Sub-goal: None
+Failed sub-goals: {(0, 0)}
+======================================================================
+
+--- Step 6 ---
+Position: (0, 0) Orientation: 0.00°
+Sensors: F=31.6cm, L=90.6cm, R=300.0cm
