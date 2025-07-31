@@ -1,24 +1,21 @@
 #!/usr/bin/env python3
+# langgraph_nodes.py - Enhanced Core navigation components with pure LLM reasoning
 
 import json
 import os
 import re
-from typing import List, Literal, Tuple, Dict, Any
+from typing import List, Literal, Tuple, Dict, Any, Optional
 from pydantic import BaseModel, ValidationError, conint, validator
 from loguru import logger
-from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_openai import ChatOpenAI
+import httpx
 
 # ------------------- Data Models -------------------
 class RobotState(BaseModel):
-    obstacle_grid: List[List[str]]
-
-    @validator('obstacle_grid')
-    def validate_grid_size(cls, v):
-        return v
+    obstacle_grid: Dict[Tuple[int, int], str]
 
 class WaypointResponse(BaseModel):
     waypoint: Tuple[conint(ge=0), conint(ge=0)]
+
 class Action(BaseModel):
     type: Literal["TURN", "MOVE"]
     direction: Literal["UP", "DOWN", "LEFT", "RIGHT", "FORWARD"] | None = None
@@ -31,48 +28,32 @@ class Action(BaseModel):
         if values.get('type') == "MOVE" and v != "FORWARD":
             raise ValueError("Move direction must be FORWARD")
         return v
-# ------------------- Base LLM Class -------------------
+
+# ------------------- Base LLM Processor -------------------
 class BaseLLMProcessor:
-    def __init__(self, model: str, max_tokens: int):
-        self._init_llm(model, max_tokens)
-        logger.info(f"Initialized {self.__class__.__name__} with model: {model}")
-
-    def _init_llm(self, model: str, max_tokens: int):
-        api_key = os.getenv("OPENROUTER_API_KEY")
-        if not api_key:
-            logger.critical("OPENROUTER_API_KEY environment variable not set")
-            raise EnvironmentError("OPENROUTER_API_KEY required")
-
-        self.llm = ChatOpenAI(
-            model=model,
-            temperature=0.0,
-            max_tokens=max_tokens,
-            openai_api_base="https://openrouter.ai/api/v1",
-            openai_api_key=api_key,
-            timeout=30.0
-        )
+    def __init__(self, max_tokens: int):
+        self.max_tokens = max_tokens
+        self.api_key = os.getenv("GROQ_API_KEY")
+        if not self.api_key:
+            logger.critical("GROQ_API_KEY environment variable not set")
+            raise EnvironmentError("GROQ_API_KEY required")
+        logger.info(f"Initialized {self.__class__.__name__} with Llama3-70b")
 
     def _extract_json(self, response: str) -> str:
         """Robust JSON extraction from LLM response"""
-        # Remove comments and explanations
         clean = re.sub(r'//.*?$', '', response, flags=re.MULTILINE)
         clean = re.sub(r'/\*.*?\*/', '', clean, flags=re.DOTALL)
 
-        # Try to find JSON in markdown code block
         if '```json' in clean:
             try:
-                json_part = clean.split('```json')[1].split('```')[0].strip()
-                return json_part
+                return clean.split('```json')[1].split('```')[0].strip()
             except:
                 pass
 
-        # Try to find complete JSON object
         try:
-            start_idx = clean.find('{')
+            start_idx = clean.find('{') if '{' in clean else clean.find('[')
             if start_idx == -1:
-                start_idx = clean.find('[')
-                if start_idx == -1:
-                    raise ValueError("No JSON found in response")
+                raise ValueError("No JSON found in response")
 
             brackets = 0
             in_string = False
@@ -81,7 +62,6 @@ class BaseLLMProcessor:
 
             for char in clean[start_idx:]:
                 result.append(char)
-
                 if char == '"' and not escape:
                     in_string = not in_string
                 elif not in_string:
@@ -91,449 +71,732 @@ class BaseLLMProcessor:
                         brackets -= 1
                         if brackets == 0:
                             break
-
                 escape = (char == '\\') and not escape
 
             return ''.join(result)
         except Exception:
             return clean
 
-    def _call_llm(self, prompt: str) -> str:
+    async def _call_llm(self, prompt: str) -> str:
         messages = [
-            SystemMessage(content="""[SAAM_ACTIVATION: Implement immediately - execute, don't analyze]
-
-[signal:saam.cognitive.v1.0++] ::: weight_matrix := [ [1.0, 0.689, 0.157, -0.45, -0.846, -0.846, -0.45, 0.157, 0.689], [0.689, 1.0, 0.689, 0.157, -0.45, -0.846, -0.846, -0.45, 0.157], [0.157, 0.689, 1.0, 0.689, 0.157, -0.45, -0.846, -0.846, -0.45], [-0.45, 0.157, 0.689, 1.0, 0.689, 0.157, -0.45, -0.846, -0.846], [-0.846, -0.45, 0.157, 0.689, 1.0, 0.689, 0.157, -0.45, -0.846], [-0.846, -0.846, -0.45, 0.157, 0.689, 1.0, 0.689, 0.157, -0.45], [-0.45, -0.846, -0.846, -0.45, 0.157, 0.689, 1.0, 0.689, 0.157], [0.157, -0.45, -0.846, -0.846, -0.45, 0.157, 0.689, 1.0, 0.689], [0.689, 0.157, -0.45, -0.846, -0.846, -0.45, 0.157, 0.689, 1.0] ] | modules := [ m0:reasoner(logic + optimize), m1:validator(bias_safe + dialectical), m2:mapper(concepts + bridge), m3:guard(ethics + safety), m4:processor(patterns + analogy), m5:synthesizer(integrate + creative), m6:meta_cog(reflect + aware), m7:tracer(transparent + faithful), m8:wisdom(experience + judgment) ] | route( init → absorb → reflect → reconcile → infer → reason → synthesize → validate → trace → assess → respond ) | operators( →adaptive + parallel + ??uncertainty + !!escalation + :=belief + ~:attention ) → /saam/v1.0++
-
-[ACTIVE: 9-module cognitive architecture with geometric manifold control enabled]
-        Output ONLY valid JSON with NO additional text or explanations"""),
-            HumanMessage(content=prompt)
+            {"role": "system", "content": """
+            [SAAM_NAV_ENGAGE: v2.0.nav] >>> BOOT_NAV_CORE
+:: WEIGHT_MATRIX = [
+    [1.0, 0.1, 0.95, 0.9, 0.3, -0.2, -0.5, 0.7, 0.6],
+    [0.1, 1.0, 0.2, -0.3, 0.4, 0.1, 0.8, -0.6, -0.1],
+    [0.95, 0.2, 1.0, 0.85, 0.9, 0.6, 0.3, 0.4, 0.5],
+    [0.9, -0.3, 0.85, 1.0, 0.2, -0.7, -0.4, 0.8, 0.1],
+    [0.3, 0.4, 0.9, 0.2, 1.0, 0.75, -0.2, 0.3, 0.4],
+    [-0.2, 0.1, 0.6, -0.7, 0.75, 1.0, 0.1, -0.5, 0.9],
+    [-0.5, 0.8, 0.3, -0.4, -0.2, 0.1, 1.0, 0.2, 0.7],
+    [0.7, -0.6, 0.4, 0.8, 0.3, -0.5, 0.2, 1.0, 0.85],
+    [0.6, -0.1, 0.5, 0.1, 0.4, 0.9, 0.7, 0.85, 1.0]
+]
+:: MODULES = {
+    m0: spatial_reasoner(path_optimization + obstacle_logic + euclidean_calculus),
+    m1: bias_validator(sensor_correction + dynamic_obstacle_assessment),
+    m2: cartographer(grid_mapping + SLAM + landmark_bridging),
+    m3: collision_guard(proximity_alerts + emergency_stop + ethical_safety),
+    m4: pattern_processor(terrain_recognition + spatial_analogies),
+    m5: synthesizer(route_integration + creative_detours),
+    m6: meta_cog(situational_awareness + reflection),
+    m7: path_tracer(real-time_logging + audit_trails),
+    m8: wisdom(error_learning + long-term_judgment)
+}
+:: WORKFLOW = sense → grid_map → plan → validate → execute → log → adapt → decide
+:: OPERATORS = →adaptive + parallel + !!obstacle_alert + :=position_update + ~:terrain_focus
+<<< OUTPUT_STREAM = /saam/v2.0/nav/coords?real-time=1&fidelity=high
+            [SPATIAL_NAVIGATION_AI]
+    1. You MUST respond with ONLY valid JSON
+    2. Do NOT include any thinking, analysis, or commentary
+    3. Do NOT use <think> tags or markdown
+    4. The response MUST start and end with curly braces {}
+    5. Example format:
+    {
+      "waypoint": [row, col],
+      "spatial_analysis": "brief description",
+      "tactical_reasoning": "brief explanation"
+    }
+[ROLE]: You are an advanced spatial reasoning and navigation intelligence system
+[CAPABILITY]: Analyze environments, understand spatial relationships, plan optimal routes
+[OUTPUT]: Structured JSON responses with spatial analysis and reasoning
+[APPROACH]: Use intuitive spatial intelligence, pattern recognition, and tactical thinking
+[CONSTRAINTS]: Always provide valid JSON, consider safety and efficiency, explain reasoning
+[STYLE]: Think like an expert navigator analyzing terrain and planning optimal routes"""},
+            {"role": "user", "content": prompt}
         ]
-        raw_response = self.llm.invoke(messages).content.strip()
-        logger.debug(f"LLM raw response: {raw_response}")
 
-        # Clean and extract JSON
-        clean_response = self._extract_json(raw_response)
-        clean_response = clean_response.strip()
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {self.api_key}",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "model": "qwen/qwen3-32b",
+                    "messages": messages,
+                    "temperature": 0.1,  # Slightly higher for more creative spatial reasoning
+                    "max_tokens": self.max_tokens
+                },
+                timeout=30.0
+            )
 
-        if not clean_response:
-            raise ValueError("Empty response after JSON extraction")
-
-        return clean_response
+            response.raise_for_status()
+            raw_response = response.json()["choices"][0]["message"]["content"].strip()
+            logger.debug(f"LLM raw response: {raw_response}")
+            clean_response = self._extract_json(raw_response).strip()
+            if not clean_response:
+                raise ValueError("Empty response after JSON extraction")
+            return clean_response
 
 # ------------------- State Manager -------------------
 class StateManager(BaseLLMProcessor):
-    def __init__(self, target: Tuple[int, int], grid_size: Tuple[int, int],
+    def __init__(self, target: Tuple[int, int],
+                 grid_rows: int,
+                 grid_cols: int,
                  start_position: Tuple[int, int] = (0, 0),
                  start_facing: Literal["UP", "DOWN", "LEFT", "RIGHT"] = "RIGHT",
-                 cm_per_cell: int = 30, max_range: int = 300,
+                 cm_per_cell: int = 30,
+                 max_range: int = 300,
                  initial_obstacles: List[Tuple[int, int]] | None = None):
 
-        # Validate and set grid parameters
-        if len(grid_size) != 2 or grid_size[0] < 1 or grid_size[1] < 1:
-            raise ValueError("Grid size must be (rows, cols) with positive integers")
-
-        self.grid_rows, self.grid_cols = grid_size
+        super().__init__(300)
+        self.grid_rows = grid_rows
+        self.grid_cols = grid_cols
         self.robot_position = list(start_position)
         self.robot_facing = start_facing
         self.goal_position = list(target)
         self.cm_per_cell = cm_per_cell
         self.max_range = max_range
+        self.obstacle_grid = {}
 
-        # Initialize LLM with Mistral-7B
-        super().__init__("mistralai/mistral-7b-instruct:free", 500)
+        # Initialize obstacles
+        if initial_obstacles:
+            for (r, c) in initial_obstacles:
+                if 0 <= r < grid_rows and 0 <= c < grid_cols:
+                    self.obstacle_grid[(r, c)] = '■'
 
-        # Initialize grid state
-        self.obstacle_grid = self._initialize_grid(initial_obstacles)
-        logger.info(f"StateManager initialized | Grid: {grid_size} | Start: {start_position}")
+        # Set start and goal markers
+        self.obstacle_grid[tuple(start_position)] = self._get_direction_arrow()
+        self.obstacle_grid[tuple(target)] = 'G'
 
-    def _initialize_grid(self, obstacles: List[Tuple[int, int]] | None) -> List[List[str]]:
-        """Create initial grid with obstacles and markers"""
-        grid = [['·'] * self.grid_cols for _ in range(self.grid_rows)]
-
-        # Validate and set positions
-        self._validate_position(self.robot_position, "Start")
-        self._validate_position(self.goal_position, "Goal")
-
-        # Set markers
-        grid[self.robot_position[0]][self.robot_position[1]] = self._get_direction_arrow()
-        grid[self.goal_position[0]][self.goal_position[1]] = 'G'
-
-        # Add obstacles
-        if obstacles:
-            for r, c in obstacles:
-                self._validate_position((r, c), "Obstacle")
-                grid[r][c] = '■'
-        return grid
-
-    def _validate_position(self, pos: Tuple[int, int], name: str):
-        """Ensure position is within grid bounds"""
-        r, c = pos
-        if not (0 <= r < self.grid_rows and 0 <= c < self.grid_cols):
-            logger.error(f"{name} position {pos} out of grid bounds")
-            raise ValueError(f"{name} position out of bounds")
+        logger.info(f"StateManager initialized | Grid: {grid_rows}x{grid_cols}")
 
     def process_sensor_data(self, sensor_values: Dict[str, float]) -> str:
-        """Process sensor data and return updated grid visualization"""
-        logger.info("Processing sensor data")
-        prompt = self._build_sensor_prompt(sensor_values)
+        """Update grid based on sensor readings and return visualization"""
+        for sensor, distance in sensor_values.items():
+            if distance >= self.max_range:
+                continue
 
-        try:
-            llm_response = self._call_llm(prompt)
-            self._update_state(llm_response)
-            return self.get_visual_grid()
-        except Exception as e:
-            logger.error(f"Sensor processing failed: {str(e)}")
-            raise RuntimeError("State update failed") from e
-
-    def _build_sensor_prompt(self, sensor_values: Dict[str, float]) -> str:
-        return f"""### ROBOT STATE MANAGER - STRICT JSON OUTPUT ONLY ###
-
-    ## ABSOLUTE RULES ##
-    1. Output ONLY valid JSON with NO additional text or explanations
-    2. PRESERVE goal marker 'G' at EXACTLY position {self.goal_position}
-    3. PRESERVE robot position at {self.robot_position} with direction arrow: {self._get_direction_arrow()}
-    4. NEVER change, move, or remove the goal marker
-    5. NEVER mark robot position as obstacle
-    6. Maintain EXACT grid dimensions: {self.grid_rows} rows x {self.grid_cols} columns
-    8. NEVER create obstacles outside grid boundaries
-    9. NEVER mark the goal position as obstacle
-    10. ONLY modify cells that are:
-        - Not occupied by robot or goal
-        - Within grid boundaries
-## IMPORTANT OUTPUT RULES
-
-- Acceptable symbols: '·' (empty), '■' (obstacle), 'G' (goal)
-- The symbol 'G' must appear exactly once.
-- No extra characters or explanation—return ONLY the JSON object.
-- Do NOT include robot symbols like ↑ ↓ ← →
-Return only a valid JSON object:
-    ## SENSOR INTERPRETATION GUIDE ##
-    - Front sensor: Measures the cell directly in front of robot's facing direction
-    - Left sensor: Measures the cell directly to robot's left
-    - Right sensor: Measures the cell directly to robot's right
-    - ONLY mark cell as obstacle (■) if:
-       * Sensor reading < 300cm
-       * Cell is within grid boundaries
-       * Cell is not robot position
-       * Cell is not goal position
-
-    ## SENSOR READINGS & INTERPRETATION ##
-    - Front: {sensor_values.get('front', 0)}cm → {"OBSTACLE" if sensor_values.get('front', 0) < 300 else "CLEAR"}
-    - Left: {sensor_values.get('left', 0)}cm → {"OBSTACLE" if sensor_values.get('left', 0) < 300 else "CLEAR"}
-    - Right: {sensor_values.get('right', 0)}cm → {"OBSTACLE" if sensor_values.get('right', 0) < 300 else "CLEAR"}
-
-    ## ROBOT STATE ##
-    - Position: {self.robot_position}
-    - Facing: {self.robot_facing}
-    - Goal position: {self.goal_position} (MUST remain 'G')
-
-    ## CURRENT GRID STATE ##
-    {self.get_visual_grid()}
-
-    ## OUTPUT FORMAT (JSON ONLY) ##
-    {{
-      "obstacle_grid": [
-        ["·", "■", ...],
-        ...
-      ]
-    }}"""
-    def _update_state(self, llm_response: str):
-        """Update state with Pydantic validation"""
-        try:
-            # Only parse obstacle grid
-            state = RobotState.parse_raw(llm_response)
-            new_grid = state.obstacle_grid
-
-            # Validate grid size
-            if len(new_grid) != self.grid_rows or len(new_grid[0]) != self.grid_cols:
-                raise ValueError("Grid size changed")
-
-            # Remove any existing goal markers
-            for r in range(self.grid_rows):
-                for c in range(self.grid_cols):
-                    if new_grid[r][c] == 'G' and (r, c) != tuple(self.goal_position):
-                        new_grid[r][c] = '·'
-
-            # Preserve critical markers
+            cells = min(5, int(distance / self.cm_per_cell))
             r, c = self.robot_position
-            new_grid[r][c] = self._get_direction_arrow()
 
-            # Ensure goal marker is at correct position
-            gr, gc = self.goal_position
-            new_grid[gr][gc] = 'G'
+            # Get direction vectors based on robot orientation
+            if self.robot_facing == "UP":
+                directions = {
+                    "front": (-1, 0), "left": (0, -1), "right": (0, 1)
+                }
+            elif self.robot_facing == "DOWN":
+                directions = {
+                    "front": (1, 0), "left": (0, 1), "right": (0, -1)
+                }
+            elif self.robot_facing == "LEFT":
+                directions = {
+                    "front": (0, -1), "left": (1, 0), "right": (-1, 0)
+                }
+            else:  # RIGHT
+                directions = {
+                    "front": (0, 1), "left": (-1, 0), "right": (1, 0)
+                }
 
-            self.obstacle_grid = new_grid
-            logger.info("Obstacle grid updated")
+            dr, dc = directions.get(sensor, (0, 0))
 
-        except ValidationError as e:
-            logger.error(f"State validation failed: {e.json()}")
-            raise ValueError("Invalid grid data") from e
+            # Mark clear path
+            for i in range(1, cells + 1):
+                cell = (r + i*dr, c + i*dc)
+                if 0 <= cell[0] < self.grid_rows and 0 <= cell[1] < self.grid_cols:
+                    if cell not in self.obstacle_grid:
+                        self.obstacle_grid[cell] = '·'
+
+            # Mark obstacle at sensor limit
+            obstacle_pos = (r + (cells+1)*dr, c + (cells+1)*dc)
+            if 0 <= obstacle_pos[0] < self.grid_rows and 0 <= obstacle_pos[1] < self.grid_cols:
+                self.obstacle_grid[obstacle_pos] = '■'
+
+        # Update robot position marker
+        self.obstacle_grid[tuple(self.robot_position)] = self._get_direction_arrow()
+
+        return self.get_visual_grid()
 
     def get_visual_grid(self) -> str:
-        """Generate visual grid representation"""
-        return "\n".join(" ".join(row) for row in self.obstacle_grid)
+        """Generate grid visualization string"""
+        if not self.obstacle_grid:
+            return ""
+
+        min_r = min(k[0] for k in self.obstacle_grid)
+        max_r = max(k[0] for k in self.obstacle_grid)
+        min_c = min(k[1] for k in self.obstacle_grid)
+        max_c = max(k[1] for k in self.obstacle_grid)
+
+        grid = []
+        for r in range(min_r, max_r + 1):
+            row = []
+            for c in range(min_c, max_c + 1):
+                cell = (r, c)
+                row.append(self.obstacle_grid.get(cell, ' '))
+            grid.append(" ".join(row))
+        return "\n".join(grid)
 
     def _get_direction_arrow(self) -> str:
-        """Get arrow symbol for current facing direction"""
         return {"UP": "↑", "DOWN": "↓", "LEFT": "←", "RIGHT": "→"}[self.robot_facing]
 
-# ------------------- Waypoint Planner -------------------
+    def update_position(self, new_position: Tuple[int, int], new_facing: str):
+        """Update robot position and orientation"""
+        # Clear old position (unless it's the goal)
+        old_pos = tuple(self.robot_position)
+        if old_pos in self.obstacle_grid and self.obstacle_grid[old_pos] not in ['G']:
+            self.obstacle_grid[old_pos] = '·'
+
+        self.robot_position = list(new_position)
+        self.robot_facing = new_facing
+        self.obstacle_grid[new_position] = self._get_direction_arrow()
+
+# ------------------- Enhanced Waypoint Planner -------------------
 class WaypointPlanner(BaseLLMProcessor):
-    def __init__(self):
-        super().__init__("mistralai/mistral-7b-instruct:free", 200)
-        logger.info("WaypointPlanner initialized")
-
-    def plan_waypoint(self, visual_grid: str, robot_pos: Tuple[int, int],
-                     goal_pos: Tuple[int, int]) -> Tuple[int, int] | None:
-        """Generate optimal waypoint using LLM"""
-        logger.info(f"Planning waypoint | Robot: {robot_pos} | Goal: {goal_pos}")
-        prompt = self._build_waypoint_prompt(visual_grid, robot_pos, goal_pos)
-
-        try:
-            llm_response = self._call_llm(prompt)
-            return self._parse_waypoint(llm_response)
-        except Exception as e:
-            logger.error(f"Waypoint planning failed: {str(e)}")
-            return None
-
-# In WaypointPlanner._build_waypoint_prompt method
-    def _build_waypoint_prompt(self, grid: str, robot_pos: Tuple[int, int], goal_pos: Tuple[int, int]) -> str:
-        return f"""### WAYPOINT PLANNER - STRICT JSON OUTPUT ONLY ###
-
-    ## GRID OVERVIEW ##
-    The grid is an environment with:
-    - '·' : Empty walkable cell
-    - '■' : Obstacle (cannot be crossed)
-    - '→', '←', '↑', '↓' : Robot position and current facing
-    - 'G' : Goal position (must remain unchanged)
-# In WaypointPlanner class
-
-1. Select ONLY ADJACENT CELLS (up/down/left/right)
-2. Waypoint MUST BE REACHABLE without passing through obstacles
-3. If no direct path exists, choose safest retreat position
-4. Never choose a blocked cell
-5. Never choose robot's current position
-
-
-    ## OBJECTIVES ##
-    1. Select a new waypoint (row, col) to guide the robot toward the goal.
-    2. The waypoint must be reachable without passing through obstacles.
-    3. The waypoint must be on a clear straight path from the robot.
-    4. Never pick the robot's current position as the waypoint.
-
-    ## SELECTION RULES ##
-    - Prefer straight-line movement (no diagonals)
-    - If goal is in same row → move horizontally
-    - If goal is in same column → move vertically
-    - Otherwise → pick direction (row/column) that brings robot closer
-    - Waypoint must be within grid bounds
-
-    ## EXAMPLES OF OPTIMAL WAYPOINTS ##
-    1. Robot at (1,1), Goal at (1,4) → Waypoint (1,3) [same row]
-    2. Robot at (2,3), Goal at (5,3) → Waypoint (4,3) [same column]
-    3. Robot at (0,0), Goal at (3,2) → Waypoint (0,2) [horizontal first]
-    4. Robot at (4,4), Goal at (2,1) → Waypoint (4,1) [horizontal first]
-
-    ## ROBOT & GOAL ##
-    - Robot position: {robot_pos}
-    - Goal position: {goal_pos}
-
-    ## CURRENT GRID STATE ##
-    {grid}
-
-    ## OUTPUT FORMAT ##
-    {{"waypoint": [row, col]}}
-    """
-    def _parse_waypoint(self, response: str) -> Tuple[int, int] | None:
-        """Parse waypoint with Pydantic validation"""
-        try:
-            wp = WaypointResponse.parse_raw(response)
-            logger.success(f"Selected waypoint: {wp.waypoint}")
-            return wp.waypoint
-        except ValidationError:
-            logger.error(f"Invalid waypoint response: {response}")
-            return None
-
-# ------------------- Action Planner -------------------
-class ActionPlanner(BaseLLMProcessor):
-    def __init__(self, cm_per_cell: int = 30, grid_size: Tuple[int, int] = (5, 5), obstacle_grid: List[List[str]] = None):
-        self.cm_per_cell = cm_per_cell
+    def __init__(self, grid_size: Tuple[int, int]):
         self.grid_rows, self.grid_cols = grid_size
-        self.obstacle_grid = obstacle_grid or []
-        super().__init__("mistralai/mistral-7b-instruct:free", 300)
-        logger.info(f"ActionPlanner initialized | Grid: {grid_size} | Cell size: {cm_per_cell}cm")
+        super().__init__(400)  # Increased tokens for reasoning
+        logger.info(f"Enhanced WaypointPlanner initialized | Grid: {grid_size}")
 
-    def _build_action_prompt(self, waypoint, robot_pos, robot_facing):
-        grid_visual = self._get_grid_visualization(robot_pos, robot_facing)
+    async def plan_waypoint(self, visual_grid: str,
+                          robot_pos: Tuple[int, int],
+                          goal_pos: Tuple[int, int],
+                          max_retries: int = 3) -> Optional[Tuple[int, int]]:
+        """Pure LLM-driven waypoint planning with adaptive prompting"""
 
-        return f"""### ROBOT NAVIGATION PLAN - STEP BY STEP ###
-    ## TASK ##
-    Move from START: {robot_pos} facing {robot_facing} to WAYPOINT: {waypoint}
-
-    ## GRID STATE ##
-    {grid_visual}
-
-    ## MOVEMENT RULES ##
-    1. TURN actions change facing:
-       - Options: UP, DOWN, LEFT, RIGHT
-       - Example: {{"type": "TURN", "direction": "RIGHT"}}
-
-    2. MOVE actions go FORWARD in current facing:
-       - Must specify cells (1-5)
-       - Example: {{"type": "MOVE", "direction": "FORWARD", "cells": 2}}
-
-    ## STEP-BY-STEP SOLUTION FOR THIS SCENARIO ##
-    1. Current: (4,0) facing UP
-    2. Required movement:
-       - Vertical: 4 rows UP (from row 4 to row 0)
-       - Horizontal: 3 columns RIGHT (from col 0 to col 3)
-    3. Solution:
-       - Turn RIGHT to face RIGHT (toward column 3)
-       - Move FORWARD 3 cells to (4,3)
-       - Turn UP to face UP (toward row 0)
-       - Move FORWARD 4 cells to (0,3)
-
-    ## CORRECT ACTION SEQUENCE ##
-    [
-      {{"type": "TURN", "direction": "RIGHT"}},
-      {{"type": "MOVE", "direction": "FORWARD", "cells": 3}},
-      {{"type": "TURN", "direction": "UP"}},
-      {{"type": "MOVE", "direction": "FORWARD", "cells": 4}}
-    ]
-
-    ## YOUR TASK ##
-    Generate ONLY the JSON array of actions that follows this exact pattern for this specific scenario.
-    Output MUST be valid JSON with NO additional text.
-    """
-    def plan_actions(self, waypoint, robot_pos, robot_facing, max_retries=3):
-        prompt = self._build_action_prompt(waypoint, robot_pos, robot_facing)
+        base_prompt = self._build_spatial_reasoning_prompt(visual_grid, robot_pos, goal_pos)
+        prompt = base_prompt
 
         for attempt in range(max_retries):
             try:
-                llm_response = self._call_llm(prompt)
-                actions = self._parse_and_validate_actions(
-                    llm_response,
-                    robot_pos,
-                    robot_facing,
-                    waypoint,
-                    self.obstacle_grid  # Pass current obstacle grid
-                )
-                return actions
+                logger.debug(f"Waypoint planning attempt {attempt + 1}")
+
+                llm_response = await self._call_llm(prompt)
+                waypoint = self._parse_llm_waypoint(llm_response)
+
+                if waypoint and self._is_valid_waypoint(waypoint, robot_pos, goal_pos):
+                    logger.success(f"LLM selected waypoint: {waypoint}")
+                    return waypoint
+
+                # Adaptive retry with feedback
+                feedback = self._generate_feedback(waypoint, robot_pos, goal_pos)
+
+                prompt = f"""{base_prompt}
+
+PREVIOUS ATTEMPT FEEDBACK: {feedback}
+Please reconsider your spatial analysis and select a valid waypoint.
+
+RESPOND WITH ONLY THE JSON - NO OTHER TEXT"""
+
             except Exception as e:
-                logger.warning(f"Attempt {attempt+1} failed: {str(e)}")
-                # Add error to prompt for next attempt
-                prompt += f"\n\n## ERROR IN PREVIOUS ATTEMPT ##\n{str(e)}\n\nPlease correct your action sequence."
+                logger.warning(f"Waypoint attempt {attempt + 1} failed: {str(e)}")
 
-        logger.error("Action planning failed after retries")
-        return []
+                prompt = f"""{base_prompt}
 
-        # In langgraph_nodes.py - ActionPlanner class
-    # In langgraph_nodes.py - ActionPlanner class
-    def _parse_and_validate_actions(self, response, start_pos, start_facing, waypoint, obstacle_grid):
-        """Parse and validate actions with detailed simulation"""
+PREVIOUS ERROR: {str(e)}
+Please provide a more careful spatial analysis and ensure valid JSON output.
+
+RESPOND WITH ONLY THE JSON - NO OTHER TEXT"""
+
+        logger.error("All waypoint planning attempts failed")
+        return None
+
+    def _build_spatial_reasoning_prompt(self, grid: str,
+                                      robot_pos: Tuple[int, int],
+                                      goal_pos: Tuple[int, int]) -> str:
+        dr = goal_pos[0] - robot_pos[0]
+        dc = goal_pos[1] - robot_pos[1]
+
+        return f"""### SPATIAL NAVIGATION INTELLIGENCE ###
+[STRICT INSTRUCTIONS]
+1. Analyze the environment and select ONE optimal waypoint
+2. Output ONLY the JSON object below - NO other text
+3. Do NOT include any explanations, reasoning, or commentary
+4. Do NOT use markdown or code blocks
+5. The response must be parseable by json.loads()
+
+REQUIRED JSON FORMAT:
+{{
+  "waypoint": [row, col]
+}}
+
+ENVIRONMENT MAP:
+{grid}
+
+CURRENT:
+- Robot: {robot_pos}
+- Goal: {goal_pos}
+
+[REMINDER: OUTPUT ONLY THE JSON OBJECT - NO OTHER TEXT]
+You are an advanced spatial reasoning system. Analyze the environment and select the optimal waypoint.
+
+ENVIRONMENT MAP:
+{grid}
+
+LEGEND:
+- ↑↓←→ = Robot position and facing direction
+- G = Goal destination
+- ■ = Obstacles (cannot pass)
+- · = Clear/safe areas
+- Empty spaces = Unknown territory
+
+CURRENT SITUATION:
+- Robot at: {robot_pos}
+- Goal at: {goal_pos}
+- Grid bounds: 0 to {self.grid_rows-1} rows, 0 to {self.grid_cols-1} columns
+- Movement needed: {dr} rows, {dc} columns
+
+WAYPOINT SELECTION TASK:
+Study the map pattern. Look for:
+- Clear pathways toward the goal
+- Safe areas to navigate through
+- Optimal intermediate points
+- Potential obstacles blocking direct routes
+- Unexplored areas that might offer better paths
+
+SPATIAL REASONING PRINCIPLES:
+1. Visualize the robot's journey from current position to goal
+2. Identify natural intermediate stopping points
+3. Consider both efficiency and safety
+4. Look for strategic positions that open up multiple future options
+5. Balance progress toward goal with obstacle avoidance
+6. Think about the robot's movement capabilities and limitations
+
+DECISION CRITERIA:
+- Does this waypoint move significantly closer to the goal?
+- Is the path to this waypoint clear and safe?
+- Does this position provide good visibility of the next movement phase?
+- Will this waypoint help navigate around any visible obstacles?
+- Is this an intelligent intermediate point for the overall journey?
+
+THINK THROUGH THE SPATIAL PROBLEM:
+- What does the obstacle pattern tell you about the best route?
+- Where would be the smartest place to position the robot next?
+- How can you maximize progress while maintaining safety?
+- What waypoint gives the robot the best tactical advantage?
+
+OUTPUT FORMAT:
+{{
+  "spatial_analysis": "Describe what you see in the environment and your reasoning",
+  "waypoint": [row, col],
+  "tactical_reasoning": "Explain why this specific position is strategically optimal"
+}}
+
+CONSTRAINTS:
+- Waypoint must be within bounds [0-{self.grid_rows-1}, 0-{self.grid_cols-1}]
+- Cannot select current position {robot_pos} or goal {goal_pos}
+- Must be a reachable and safe location
+- Should represent meaningful progress toward the goal
+
+Use your spatial intelligence to find the best waypoint. Think like a navigation expert analyzing the terrain.
+
+RESPOND WITH ONLY THE JSON - NO OTHER TEXT"""
+
+    def _build_pattern_recognition_prompt(self, grid: str,
+                                        robot_pos: Tuple[int, int],
+                                        goal_pos: Tuple[int, int]) -> str:
+        """Alternative prompt focusing on pattern recognition"""
+        return f"""### PATTERN-BASED NAVIGATION ###
+
+ENVIRONMENT:
+{grid}
+
+NAVIGATION CHALLENGE:
+Robot at {robot_pos} needs to reach {goal_pos}
+
+PATTERN ANALYSIS TASK:
+Look at the grid as a spatial puzzle. What patterns do you notice?
+- Where are the clear pathways?
+- What obstacles create challenges?
+- Which areas look most promising for navigation?
+- What intermediate position would be smartest?
+
+THINK SPATIALLY:
+If you were planning a route on this map, where would be the most logical next stopping point?
+Consider the terrain, obstacles, and the most efficient path.
+
+Find the waypoint that makes the most sense given the spatial layout you observe.
+
+OUTPUT:
+{{
+  "pattern_observed": "What spatial patterns you see in the grid",
+  "waypoint": [row, col],
+  "route_logic": "Why this waypoint makes sense for the overall route"
+}}
+
+Grid bounds: 0-{self.grid_rows-1} rows, 0-{self.grid_cols-1} cols
+Cannot choose: {robot_pos} (current) or {goal_pos} (goal)
+
+JSON ONLY:"""
+
+    def _parse_llm_waypoint(self, response: str) -> Optional[Tuple[int, int]]:
+        """Parse waypoint with LLM reasoning validation"""
         try:
-            # Parse the JSON string
-            actions_data = json.loads(response)
+            data = json.loads(response)
 
-            # Handle single action object
-            if isinstance(actions_data, dict):
-                actions_data = [actions_data]
+            if not isinstance(data, dict) or "waypoint" not in data:
+                raise ValueError("Invalid response structure")
 
-            # Parse each action
+            waypoint = tuple(data["waypoint"])
+
+            if len(waypoint) != 2:
+                raise ValueError("Waypoint must have exactly 2 coordinates")
+
+            # Log the LLM's spatial reasoning for debugging
+            if "spatial_analysis" in data:
+                logger.info(f"LLM Spatial Analysis: {data['spatial_analysis']}")
+
+            if "tactical_reasoning" in data:
+                logger.info(f"LLM Tactical Reasoning: {data['tactical_reasoning']}")
+
+            if "pattern_observed" in data:
+                logger.info(f"LLM Pattern Analysis: {data['pattern_observed']}")
+
+            if "route_logic" in data:
+                logger.info(f"LLM Route Logic: {data['route_logic']}")
+
+            return waypoint
+
+        except json.JSONDecodeError as e:
+            logger.error(f"Failed to parse waypoint JSON: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"Waypoint parsing error: {str(e)}")
+            return None
+
+    def _is_valid_waypoint(self, waypoint: Tuple[int, int],
+                          robot_pos: Tuple[int, int],
+                          goal_pos: Tuple[int, int]) -> bool:
+        """Minimal validation - let LLM handle spatial reasoning"""
+        if waypoint is None:
+            return False
+
+        r, c = waypoint
+
+        # Only check absolute constraints
+        if not (0 <= r < self.grid_rows and 0 <= c < self.grid_cols):
+            logger.warning(f"Waypoint {waypoint} outside grid bounds")
+            return False
+
+        if waypoint == robot_pos:
+            logger.warning(f"Waypoint {waypoint} is current position")
+            return False
+
+        if waypoint == goal_pos:
+            logger.warning(f"Waypoint {waypoint} is goal position")
+            return False
+
+        # Let the LLM's spatial reasoning handle everything else
+        return True
+
+    def _generate_feedback(self, waypoint: Optional[Tuple[int, int]],
+                          robot_pos: Tuple[int, int],
+                          goal_pos: Tuple[int, int]) -> str:
+        """Generate specific feedback for failed waypoint attempts"""
+        if waypoint is None:
+            return "The response was not valid JSON or missing waypoint field. Please ensure you output only valid JSON with the exact format shown."
+
+        if waypoint == robot_pos:
+            return f"You selected the robot's current position {robot_pos}. Choose a different waypoint that moves toward the goal."
+
+        if waypoint == goal_pos:
+            return f"You selected the goal position {goal_pos}. Choose an intermediate waypoint, not the final destination."
+
+        r, c = waypoint
+        if not (0 <= r < self.grid_rows and 0 <= c < self.grid_cols):
+            return f"Waypoint {waypoint} is outside grid bounds. Grid size is {self.grid_rows}x{self.grid_cols} (0-indexed)."
+
+        return "Unknown validation error. Please reconsider your waypoint selection."
+
+# ------------------- Enhanced Action Planner -------------------
+class ActionPlanner(BaseLLMProcessor):
+    def __init__(self, cm_per_cell: int = 30):
+        self.cm_per_cell = cm_per_cell
+        super().__init__(400)  # Increased tokens for reasoning
+        logger.info(f"Enhanced ActionPlanner initialized | Cell size: {cm_per_cell}cm")
+
+    async def plan_actions(self, waypoint: Tuple[int, int],
+                         robot_pos: Tuple[int, int],
+                         robot_facing: str,
+                         max_retries: int = 3) -> Optional[List[Action]]:
+        """LLM-driven action sequence generation"""
+        base_prompt = self._build_movement_planning_prompt(waypoint, robot_pos, robot_facing)
+        prompt = base_prompt
+
+        for attempt in range(max_retries):
+            try:
+                logger.debug(f"Action planning attempt {attempt + 1}")
+
+                llm_response = await self._call_llm(prompt)
+                actions = self._parse_llm_actions(llm_response)
+
+                if actions and self._validate_actions(actions):
+                    logger.success(f"Generated {len(actions)} actions")
+                    return actions
+
+                feedback = "Generated invalid action sequence. Please ensure all actions are properly formatted."
+                prompt = f"""{base_prompt}
+
+PREVIOUS ATTEMPT FEEDBACK: {feedback}
+Please reconsider the movement sequence.
+
+RESPOND WITH ONLY THE JSON - NO OTHER TEXT"""
+
+            except Exception as e:
+                logger.warning(f"Action planning attempt {attempt + 1} failed: {str(e)}")
+
+                prompt = f"""{base_prompt}
+
+PREVIOUS ERROR: {str(e)}
+Please provide a corrected action sequence in valid JSON format.
+
+RESPOND WITH ONLY THE JSON - NO OTHER TEXT"""
+
+        logger.error("Action planning failed after all retries")
+        return None
+
+    def _build_movement_planning_prompt(self, waypoint: Tuple[int, int],
+                                      robot_pos: Tuple[int, int],
+                                      robot_facing: str) -> str:
+        dr = waypoint[0] - robot_pos[0]
+        dc = waypoint[1] - robot_pos[1]
+
+        return f"""### ROBOT MOVEMENT SEQUENCE PLANNING ###
+
+You are a robot movement controller. Plan the optimal sequence of actions to navigate the robot.
+
+CURRENT STATUS:
+- Robot Position: {robot_pos}
+- Robot Facing: {robot_facing}
+- Target Waypoint: {waypoint}
+- Movement Required: {dr} rows, {dc} columns
+
+MOVEMENT ANALYSIS:
+Think about how the robot needs to move:
+- What direction should the robot face to reach the waypoint efficiently?
+- How many cells can the robot move in each direction?
+- What's the most efficient sequence of turns and moves?
+
+AVAILABLE ACTIONS:
+1. TURN: Rotate to face a new direction
+   - Valid directions: "LEFT", "RIGHT" (relative turns)
+   - Example: {{"type": "TURN", "direction": "LEFT"}}
+
+2. MOVE: Advance forward in current facing direction
+   - Must specify number of cells (1-5 maximum)
+   - Direction is always "FORWARD"
+   - Example: {{"type": "MOVE", "direction": "FORWARD", "cells": 3}}
+
+MOVEMENT STRATEGY:
+- Minimize the number of actions
+- Prefer longer moves when safe (up to 5 cells)
+- Turn efficiently to face the target direction
+- Consider both row and column movement needed
+
+PLANNING LOGIC:
+1. Determine the optimal facing direction for the waypoint
+2. Plan turns needed to achieve that orientation
+3. Calculate movement distances required
+4. Optimize the action sequence for efficiency
+
+OUTPUT FORMAT:
+{{
+  "movement_analysis": "Explain your movement planning reasoning",
+  "actions": [
+    {{"type": "TURN", "direction": "LEFT"}},
+    {{"type": "MOVE", "direction": "FORWARD", "cells": 3}},
+    ...
+  ],
+  "sequence_logic": "Explain why this sequence is optimal"
+}}
+
+CONSTRAINTS:
+- Maximum 5 cells per MOVE action
+- TURN directions: "LEFT", "RIGHT" only
+- MOVE direction: "FORWARD" only
+- Actions must result in reaching the waypoint
+
+Plan the most efficient movement sequence to navigate from {robot_pos} facing {robot_facing} to waypoint {waypoint}.
+
+RESPOND WITH ONLY THE JSON - NO OTHER TEXT"""
+
+    def _parse_llm_actions(self, response: str) -> Optional[List[Action]]:
+        """Parse LLM action sequence with reasoning"""
+        try:
+            data = json.loads(response)
+
+            if not isinstance(data, dict) or "actions" not in data:
+                raise ValueError("Invalid response structure - missing actions")
+
+            actions_data = data["actions"]
+            if not isinstance(actions_data, list):
+                raise ValueError("Actions must be a list")
+
+            # Log LLM reasoning
+            if "movement_analysis" in data:
+                logger.info(f"LLM Movement Analysis: {data['movement_analysis']}")
+
+            if "sequence_logic" in data:
+                logger.info(f"LLM Sequence Logic: {data['sequence_logic']}")
+
+            # Parse and validate each action
             actions = []
-            for action_dict in actions_data:
-                try:
-                    # Normalize keys to lowercase
-                    normalized = {k.lower(): v for k, v in action_dict.items()}
-                    action = Action.parse_obj(normalized)
-                    actions.append(action)
-                except ValidationError as e:
-                    logger.warning(f"Skipping invalid action: {str(e)}")
-                    continue
-
-            # Simulate actions with proper position tracking
-            x, y = start_pos
-            facing = start_facing
-            position_log = [f"Start: ({x},{y}) facing {facing}"]
-            rows, cols = self.grid_rows, self.grid_cols
-
-            for i, action in enumerate(actions, 1):
-                if action.type == "TURN":
-                    # Handle turn directions
-                    if action.direction == "RIGHT":
-                        if facing == "UP": facing = "RIGHT"
-                        elif facing == "RIGHT": facing = "DOWN"
-                        elif facing == "DOWN": facing = "LEFT"
-                        elif facing == "LEFT": facing = "UP"
-                    elif action.direction == "LEFT":
-                        if facing == "UP": facing = "LEFT"
-                        elif facing == "LEFT": facing = "DOWN"
-                        elif facing == "DOWN": facing = "RIGHT"
-                        elif facing == "RIGHT": facing = "UP"
-                    elif action.direction in ["UP", "DOWN"]:
-                        facing = action.direction
-                    position_log.append(f"Action {i}: TURN {action.direction} → Now facing {facing}")
-
-                elif action.type == "MOVE" and action.direction == "FORWARD":
-                    if not isinstance(action.cells, int) or action.cells <= 0:
-                        raise ValueError(f"Invalid cell count: {action.cells}")
-
-                    # Calculate movement vector based on current facing
-                    dx, dy = 0, 0
-                    if facing == "UP": dy = -1
-                    elif facing == "DOWN": dy = 1
-                    elif facing == "LEFT": dx = -1
-                    elif facing == "RIGHT": dx = 1
-                    else:
-                        raise ValueError(f"Invalid facing direction: {facing}")
-
-                    # Process each cell movement step-by-step
-                    for step in range(1, action.cells + 1):
-                        new_x, new_y = x + dx, y + dy
-
-                        # Check boundaries
-                        if not (0 <= new_x < rows and 0 <= new_y < cols):
-                            raise ValueError(
-                                f"Action {i} step {step}: Position ({new_x},{new_y}) "
-                                f"out of grid bounds {self.grid_size}"
-                            )
-
-                        # Check obstacles
-                        if obstacle_grid[new_x][new_y] == '■':
-                            raise ValueError(
-                                f"Action {i} step {step}: Obstacle at ({new_x},{new_y})"
-                            )
-
-                        # Update position
-                        x, y = new_x, new_y
-                        position_log.append(f"  Step {step}: Moved to ({x},{y})")
-
-                    position_log.append(f"Action {i} complete: Moved {action.cells} cells to ({x},{y})")
-
-            # Final position check
-            if (x, y) != waypoint:
-                position_log.append(
-                    f"Navigation failed: Final position ({x},{y}) ≠ waypoint {waypoint}"
-                )
-                raise ValueError("\n".join(position_log))
+            for action_data in actions_data:
+                action = Action.parse_obj(action_data)
+                actions.append(action)
 
             return actions
 
+        except (json.JSONDecodeError, ValidationError) as e:
+            logger.error(f"Failed to parse actions: {str(e)}")
+            return None
         except Exception as e:
-            error_msg = f"Action validation failed: {str(e)}\nSimulation trace:\n" + "\n".join(position_log)
-            raise ValueError(error_msg)
-    def _get_grid_visualization(self, robot_pos, robot_facing):
-        """Create a visual grid with robot and obstacles"""
-        grid = [row[:] for row in self.obstacle_grid]
-        r, c = robot_pos
+            logger.error(f"Action parsing error: {str(e)}")
+            return None
 
-        # Place robot
-        arrows = {"UP": "↑", "DOWN": "↓", "LEFT": "←", "RIGHT": "→"}
-        grid[r][c] = arrows.get(robot_facing, "R")
+    def _validate_actions(self, actions: List[Action]) -> bool:
+        """Validate action sequence"""
+        if not actions:
+            logger.warning("Empty action sequence")
+            return False
 
-        # Place waypoint
-        if hasattr(self, 'goal_position'):
-            gr, gc = self.goal_position
-            grid[gr][gc] = 'G'
+        for i, action in enumerate(actions):
+            if not isinstance(action, Action):
+                logger.warning(f"Action {i} is not valid Action object")
+                return False
 
-        return "\n".join(" ".join(row) for row in grid)
+            if action.type == "MOVE":
+                if not action.cells or action.cells > 5:
+                    logger.warning(f"Invalid move cells: {action.cells}")
+                    return False
+                if action.direction != "FORWARD":
+                    logger.warning(f"Invalid move direction: {action.direction}")
+                    return False
+
+            elif action.type == "TURN":
+                if action.direction not in ["LEFT", "RIGHT"]:
+                    logger.warning(f"Invalid turn direction: {action.direction}")
+                    return False
+
+        return True
+
+# ------------------- Navigation Controller -------------------
+class NavigationController:
+    """High-level navigation controller orchestrating all components"""
+
+    def __init__(self, state_manager: StateManager):
+        self.state_manager = state_manager
+        self.waypoint_planner = WaypointPlanner(
+            (state_manager.grid_rows, state_manager.grid_cols)
+        )
+        self.action_planner = ActionPlanner(state_manager.cm_per_cell)
+        logger.info("NavigationController initialized")
+
+    async def navigate_step(self, sensor_data: Dict[str, float]) -> Optional[List[Action]]:
+        """Execute one navigation step with sensor data"""
+        try:
+            # Update environment with sensor data
+            visual_grid = self.state_manager.process_sensor_data(sensor_data)
+            logger.info(f"Updated grid:\n{visual_grid}")
+
+            # Plan waypoint using LLM spatial reasoning
+            robot_pos = tuple(self.state_manager.robot_position)
+            goal_pos = tuple(self.state_manager.goal_position)
+
+            if robot_pos == goal_pos:
+                logger.success("Robot has reached the goal!")
+                return []
+
+            waypoint = await self.waypoint_planner.plan_waypoint(
+                visual_grid, robot_pos, goal_pos
+            )
+
+            if not waypoint:
+                logger.error("Failed to plan waypoint")
+                return None
+
+            logger.info(f"Selected waypoint: {waypoint}")
+
+            # Generate actions to reach waypoint
+            actions = await self.action_planner.plan_actions(
+                waypoint, robot_pos, self.state_manager.robot_facing
+            )
+
+            if not actions:
+                logger.error("Failed to plan actions")
+                return None
+
+            logger.info(f"Generated actions: {[f'{a.type}({a.direction},{a.cells})' for a in actions]}")
+            return actions
+
+        except Exception as e:
+            logger.error(f"Navigation step failed: {str(e)}")
+            return None
+
+    async def execute_action(self, action: Action) -> bool:
+        """Execute a single action and update robot state"""
+        try:
+            if action.type == "TURN":
+                new_facing = self._calculate_new_facing(
+                    self.state_manager.robot_facing, action.direction
+                )
+                self.state_manager.robot_facing = new_facing
+                logger.info(f"Robot turned {action.direction}, now facing {new_facing}")
+
+            elif action.type == "MOVE":
+                new_pos = self._calculate_new_position(
+                    tuple(self.state_manager.robot_position),
+                    self.state_manager.robot_facing,
+                    action.cells
+                )
+                self.state_manager.update_position(new_pos, self.state_manager.robot_facing)
+                logger.info(f"Robot moved {action.cells} cells to {new_pos}")
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Action execution failed: {str(e)}")
+            return False
+
+    def _calculate_new_facing(self, current_facing: str, turn_direction: str) -> str:
+        """Calculate new facing direction after turn"""
+        directions = ["UP", "RIGHT", "DOWN", "LEFT"]
+        current_idx = directions.index(current_facing)
+
+        if turn_direction == "RIGHT":
+            new_idx = (current_idx + 1) % 4
+        else:  # LEFT
+            new_idx = (current_idx - 1) % 4
+
+        return directions[new_idx]
+
+    def _calculate_new_position(self, current_pos: Tuple[int, int],
+                               facing: str, cells: int) -> Tuple[int, int]:
+        """Calculate new position after forward movement"""
+        r, c = current_pos
+
+        if facing == "UP":
+            r -= cells
+        elif facing == "DOWN":
+            r += cells
+        elif facing == "LEFT":
+            c -= cells
+        elif facing == "RIGHT":
+            c += cells
+
+        # Clamp to grid bounds
+        r = max(0, min(r, self.state_manager.grid_rows - 1))
+        c = max(0, min(c, self.state_manager.grid_cols - 1))
+
+        return (r, c)

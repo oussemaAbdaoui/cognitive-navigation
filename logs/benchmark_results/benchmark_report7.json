@@ -1,0 +1,35 @@
+{
+  "summary": {
+    "total_scenarios": 1,
+    "successful_scenarios": 0,
+    "success_rate": 0.0,
+    "avg_execution_time": 13.278046607971191,
+    "avg_steps": 10.0,
+    "avg_path_efficiency": 1.0
+  },
+  "difficulty_breakdown": {
+    "expert": {
+      "total": 1,
+      "success": 0,
+      "avg_efficiency": 1.0,
+      "success_rate": 0.0
+    }
+  },
+  "failure_analysis": {
+    "timeout": 0,
+    "collision": 0,
+    "error": 0,
+    "goal_not_reached": 1
+  },
+  "scenario_details": [
+    {
+      "name": "Complex Maze",
+      "difficulty": "expert",
+      "success": false,
+      "steps": 10,
+      "efficiency": 1.0,
+      "time": 13.278046607971191,
+      "failure_reason": "goal_not_reached"
+    }
+  ]
+}

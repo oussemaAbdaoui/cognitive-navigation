@@ -1,0 +1,247 @@
+[
+  {
+    "scenario": {
+      "name": "Simple Path",
+      "scenario_type": "ScenarioType.SIMPLE_PATH",
+      "start_position": [
+        0,
+        0
+      ],
+      "goal_position": [
+        0,
+        5
+      ],
+      "obstacles": [],
+      "expected_path_length_range": [
+        5,
+        8
+      ],
+      "max_steps": 15,
+      "description": "Direct path with no obstacles",
+      "difficulty": "easy"
+    },
+    "result": {
+      "scenario_name": "Simple Path",
+      "success": true,
+      "steps_taken": 1,
+      "path_efficiency": 1.0,
+      "goal_reached": true,
+      "timeout": false,
+      "collision_occurred": false,
+      "final_position": [
+        0,
+        5
+      ],
+      "execution_time": 1.0030052661895752,
+      "error_message": null,
+      "path_trace": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "action_sequence": [
+        {
+          "next_waypoint": [
+            0,
+            5
+          ],
+          "type": "MOVE",
+          "direction": "FORWARD",
+          "cells": 5
+        }
+      ]
+    }
+  },
+  {
+    "scenario": {
+      "name": "Single Obstacle",
+      "scenario_type": "ScenarioType.OBSTACLE_MAZE",
+      "start_position": [
+        0,
+        0
+      ],
+      "goal_position": [
+        0,
+        4
+      ],
+      "obstacles": [
+        [
+          0,
+          2
+        ]
+      ],
+      "expected_path_length_range": [
+        6,
+        10
+      ],
+      "max_steps": 20,
+      "description": "Navigate around a single obstacle",
+      "difficulty": "easy"
+    },
+    "result": {
+      "scenario_name": "Single Obstacle",
+      "success": true,
+      "steps_taken": 1,
+      "path_efficiency": 1.0,
+      "goal_reached": true,
+      "timeout": false,
+      "collision_occurred": false,
+      "final_position": [
+        0,
+        4
+      ],
+      "execution_time": 1.3010799884796143,
+      "error_message": null,
+      "path_trace": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "action_sequence": [
+        {
+          "next_waypoint": [
+            0,
+            4
+          ],
+          "type": "MOVE",
+          "direction": "FORWARD",
+          "cells": 4
+        }
+      ]
+    }
+  },
+  {
+    "scenario": {
+      "name": "Narrow Corridor",
+      "scenario_type": "ScenarioType.NARROW_CORRIDOR",
+      "start_position": [
+        0,
+        0
+      ],
+      "goal_position": [
+        6,
+        0
+      ],
+      "obstacles": [
+        [
+          1,
+          -1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          3,
+          -1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          -1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          5,
+          1
+        ]
+      ],
+      "expected_path_length_range": [
+        6,
+        10
+      ],
+      "max_steps": 25,
+      "description": "Navigate through a narrow corridor",
+      "difficulty": "medium"
+    },
+    "result": {
+      "scenario_name": "Narrow Corridor",
+      "success": true,
+      "steps_taken": 3,
+      "path_efficiency": 1.0,
+      "goal_reached": true,
+      "timeout": false,
+      "collision_occurred": false,
+      "final_position": [
+        6,
+        0
+      ],
+      "execution_time": 4.3937036991119385,
+      "error_message": null,
+      "path_trace": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          6,
+          0
+        ]
+      ],
+      "action_sequence": [
+        {
+          "next_waypoint": [
+            0,
+            0
+          ],
+          "type": "TURN",
+          "direction": "RIGHT"
+        },
+        {
+          "next_waypoint": [
+            5,
+            0
+          ],
+          "type": "MOVE",
+          "direction": "FORWARD",
+          "cells": 5
+        },
+        {
+          "next_waypoint": [
+            6,
+            0
+          ],
+          "type": "MOVE",
+          "direction": "RIGHT",
+          "cells": 1
+        }
+      ]
+    }
+  }
+]

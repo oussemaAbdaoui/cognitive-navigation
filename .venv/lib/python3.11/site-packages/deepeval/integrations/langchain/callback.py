@@ -1,17 +1,22 @@
 from typing import Any, Optional
 from uuid import UUID
 from time import perf_counter
-from deepeval.tracing.attributes import LlmAttributes, RetrieverAttributes
+from deepeval.tracing.attributes import (
+    LlmAttributes,
+    RetrieverAttributes,
+    LlmOutput,
+    LlmToolCall,
+)
 
 try:
     from langchain_core.callbacks.base import BaseCallbackHandler
     from langchain_core.outputs import LLMResult
     from langchain_core.outputs import ChatGeneration
+    from langchain_core.messages import AIMessage
 
     # contains langchain imports
     from deepeval.integrations.langchain.utils import (
         parse_prompts_to_messages,
-        convert_chat_generation_to_string,
         prepare_dict,
         extract_token_usage,
         extract_name,
@@ -169,7 +174,7 @@ class CallbackHandler(BaseCallbackHandler):
         if llm_span is None:
             return
 
-        output_str = ""
+        output = ""
         total_input_tokens = 0
         total_output_tokens = 0
 
@@ -187,13 +192,27 @@ class CallbackHandler(BaseCallbackHandler):
                         llm_span.model = gen.message.response_metadata.get(
                             "model_name", "unknown"
                         )
-
-                    output_str += convert_chat_generation_to_string(gen) + "\n"
+                    if isinstance(gen.message, AIMessage):
+                        ai_message = gen.message
+                        tool_calls = []
+                        for tool_call in ai_message.tool_calls:
+                            tool_calls.append(
+                                LlmToolCall(
+                                    name=tool_call["name"],
+                                    args=tool_call["args"],
+                                    id=tool_call["id"],
+                                )
+                            )
+                        output = LlmOutput(
+                            role="AI",
+                            content=ai_message.content,
+                            tool_calls=tool_calls,
+                        )
 
         llm_span.set_attributes(
             LlmAttributes(
                 input=llm_span.attributes.input,
-                output=output_str,
+                output=output,
                 input_token_count=total_input_tokens,
                 output_token_count=total_output_tokens,
             )

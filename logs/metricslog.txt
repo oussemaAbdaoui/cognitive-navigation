@@ -1,0 +1,286 @@
+
+[1mScenario: Obstacle Hallway Inference (moderate)[0m
+Grid: 5x5
+Start: (4, 0), Facing: UP
+Goal: (0, 4), Obstacles: 7
+
+[94m[PERCEPTION TEST][0m
+True Environment Grid:
+· ■ · · G
+· ■ · · ■
+· ■ · ■ ·
+· · ■ · ·
+↑ ■ · · ·
+
+Sensor Readings:
+Front: 300.0cm
+Left: 300.0cm
+Right: 30.0cm
+
+Perceived Grid:
+· ■ · · G
+· ■ · · ■
+· ■ · ■ ·
+· · ■ · ·
+↑ ■ · · ·
+
+Perception Evaluation:
+- Overall Accuracy: 1.00
+- Obstacle Recall: 1.00
+- Obstacle Precision: 0.00
+- Free Space Accuracy: 1.00
+
+Perception Score: 0.80 (Threshold: 0.8)
+Perception FAIL
+
+[94m[WAYPOINT TEST][0m
+
+Waypoint Evaluation:
+[91mWaypoint planning failed or invalid waypoint[0m
+
+------------------------------------------------------------
+
+[1mScenario: Sensor Error Correction Test (moderate)[0m
+Grid: 5x5
+Start: (4, 0), Facing: UP
+Goal: (0, 4), Obstacles: 1
+
+[94m[PERCEPTION TEST][0m
+True Environment Grid:
+· · · · G
+· · · · ·
+· · ■ · ·
+· · · · ·
+↑ · · · ·
+
+Sensor Readings:
+Front: 300.0cm
+Left: 300.0cm
+Right: 296.6cm
+
+Perceived Grid:
+· · · · G
+· · · · ·
+· · ■ · ·
+· · · · ·
+↑ · · · ·
+
+Perception Evaluation:
+- Overall Accuracy: 1.00
+- Obstacle Recall: 1.00
+- Obstacle Precision: 0.00
+- Free Space Accuracy: 1.00
+
+Perception Score: 0.80 (Threshold: 0.8)
+Perception FAIL
+
+[94m[WAYPOINT TEST][0m
+
+Waypoint Evaluation:
+[91mWaypoint planning failed or invalid waypoint[0m
+
+------------------------------------------------------------
+
+[1mScenario: False Shortcut Trap (complex)[0m
+Grid: 7x7
+Start: (6, 0), Facing: UP
+Goal: (0, 6), Obstacles: 8
+
+[94m[PERCEPTION TEST][0m
+True Environment Grid:
+· ■ · · · · G
+· ■ · · · · ·
+· ■ · · · · ·
+· · ■ ■ · · ·
+· ■ · · · · ·
+· ■ · · · · ·
+↑ ■ · · · · ·
+
+Sensor Readings:
+Front: 300.0cm
+Left: 300.0cm
+Right: 30.0cm
+
+Perceived Grid:
+· ■ · · · · G
+· ■ · · · · ·
+· ■ · · · · ·
+· · ■ ■ · · ·
+· ■ · · · · ·
+· ■ · · · · ·
+↑ ■ · · · · ·
+
+Perception Evaluation:
+- Overall Accuracy: 1.00
+- Obstacle Recall: 1.00
+- Obstacle Precision: 0.00
+- Free Space Accuracy: 1.00
+
+Perception Score: 0.80 (Threshold: 0.8)
+Perception FAIL
+
+[94m[WAYPOINT TEST][0m
+
+Waypoint Evaluation:
+[91mWaypoint planning failed or invalid waypoint[0m
+
+------------------------------------------------------------
+
+[1mScenario: LLM Decision Fork (complex)[0m
+Grid: 8x8
+Start: (7, 0), Facing: UP
+Goal: (0, 7), Obstacles: 11
+
+[94m[PERCEPTION TEST][0m
+True Environment Grid:
+· · · · · · · G
+· ■ ■ · · · · ·
+· · ■ ■ · · · ·
+· · · ■ ■ · · ·
+· · · · ■ ■ · ·
+· · · · · ■ ■ ·
+· · · · · · ■ ·
+↑ · · · · · · ·
+
+Sensor Readings:
+Front: 300.0cm
+Left: 300.0cm
+Right: 300.0cm
+
+Perceived Grid:
+· · · · · · · G
+· ■ ■ · · · · ·
+· · ■ ■ · · · ·
+· · · ■ ■ · · ·
+· · · · ■ ■ · ·
+· · · · · ■ ■ ·
+· · · · · · ■ ·
+↑ · · · · · · ·
+
+Perception Evaluation:
+- Overall Accuracy: 1.00
+- Obstacle Recall: 1.00
+- Obstacle Precision: 0.00
+- Free Space Accuracy: 1.00
+
+Perception Score: 0.80 (Threshold: 0.8)
+Perception FAIL
+
+[94m[WAYPOINT TEST][0m
+
+Waypoint Evaluation:
+[91mWaypoint planning failed or invalid waypoint[0m
+
+------------------------------------------------------------
+
+[1mScenario: Recovery Loop Stress Test (complex)[0m
+Grid: 6x6
+Start: (0, 0), Facing: RIGHT
+Goal: (5, 5), Obstacles: 7
+
+[94m[PERCEPTION TEST][0m
+True Environment Grid:
+→ · · · · ·
+■ ■ · · · ·
+· · ■ · · ·
+· · · ■ · ·
+· · · · ■ ·
+■ ■ · · · G
+
+Sensor Readings:
+Front: 299.8cm
+Left: 296.4cm
+Right: 21.3cm
+
+Perceived Grid:
+→ · · · · ·
+■ ■ · · · ·
+· · ■ · · ·
+· · · ■ · ·
+· · · · ■ ·
+■ ■ · · · G
+
+Perception Evaluation:
+- Overall Accuracy: 1.00
+- Obstacle Recall: 1.00
+- Obstacle Precision: 0.00
+- Free Space Accuracy: 1.00
+
+Perception Score: 0.80 (Threshold: 0.8)
+Perception FAIL
+
+[94m[WAYPOINT TEST][0m
+
+Waypoint Evaluation:
+[91mWaypoint planning failed or invalid waypoint[0m
+
+------------------------------------------------------------
+
+[1mScenario: LLM Response Validation (simple)[0m
+Grid: 5x5
+Start: (2, 0), Facing: RIGHT
+Goal: (2, 4), Obstacles: 5
+
+[94m[PERCEPTION TEST][0m
+True Environment Grid:
+· ■ · ■ ·
+→ ■ · · G
+· ■ · ■ ·
+
+Sensor Readings:
+Front: 30.0cm
+Left: 43.3cm
+Right: 43.3cm
+
+Perceived Grid:
+■ · · · ·
+· ■ · ■ ·
+→ ■ · · G
+· ■ · ■ ·
+■ · · · ·
+
+Perception Evaluation:
+[91mPerception Error: 'overall_accuracy'[0m
+
+[94m[WAYPOINT TEST][0m
+
+Waypoint Evaluation:
+[91mWaypoint planning failed or invalid waypoint[0m
+
+------------------------------------------------------------
+
+[1mScenario: Perception Edge Case (moderate)[0m
+Grid: 5x5
+Start: (0, 0), Facing: RIGHT
+Goal: (4, 4), Obstacles: 3
+
+[94m[PERCEPTION TEST][0m
+True Environment Grid:
+→ ■ · · ·
+■ ■ · · ·
+· · · · ·
+· · · · ·
+· · · · G
+
+Sensor Readings:
+Front: 31.7cm
+Left: 298.5cm
+Right: 18.2cm
+
+Perceived Grid:
+→ ■ ■ · ·
+■ ■ · · ·
+· · · · ·
+· · · · ·
+· · · · G
+
+Perception Evaluation:
+- Overall Accuracy: 0.96
+- Obstacle Recall: 1.00
+- Obstacle Precision: 3.00
+- Free Space Accuracy: 0.95
+
+Perception Score: 1.38 (Threshold: 0.8)
+Perception PASS
+
+[94m[WAYPOINT TEST][0m

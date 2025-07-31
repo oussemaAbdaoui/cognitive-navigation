@@ -1,0 +1,35 @@
+{
+  "summary": {
+    "total_scenarios": 1,
+    "successful_scenarios": 0,
+    "success_rate": 0.0,
+    "avg_execution_time": 7.918030023574829,
+    "avg_steps": 6.0,
+    "avg_path_efficiency": 1.0
+  },
+  "difficulty_breakdown": {
+    "medium": {
+      "total": 1,
+      "success": 0,
+      "avg_efficiency": 1.0,
+      "success_rate": 0.0
+    }
+  },
+  "failure_analysis": {
+    "timeout": 0,
+    "collision": 1,
+    "error": 0,
+    "goal_not_reached": 0
+  },
+  "scenario_details": [
+    {
+      "name": "Multi-Path Choice",
+      "difficulty": "medium",
+      "success": false,
+      "steps": 6,
+      "efficiency": 1.0,
+      "time": 7.918030023574829,
+      "failure_reason": "collision"
+    }
+  ]
+}

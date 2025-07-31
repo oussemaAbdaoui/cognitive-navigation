@@ -1,0 +1,158 @@
+[
+  {
+    "scenario": {
+      "name": "Open Space Efficiency",
+      "scenario_type": "ScenarioType.LARGE_OPEN_SPACE",
+      "start_position": [
+        0,
+        0
+      ],
+      "goal_position": [
+        8,
+        8
+      ],
+      "obstacles": [],
+      "expected_path_length_range": [
+        16,
+        25
+      ],
+      "max_steps": 40,
+      "description": "Test efficiency in open space",
+      "difficulty": "easy"
+    },
+    "result": {
+      "scenario_name": "Open Space Efficiency",
+      "success": false,
+      "steps_taken": 10,
+      "path_efficiency": 1.0,
+      "goal_reached": false,
+      "timeout": false,
+      "collision_occurred": false,
+      "final_position": [
+        5,
+        6
+      ],
+      "execution_time": 12.773544311523438,
+      "error_message": null,
+      "path_trace": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "action_sequence": [
+        {
+          "next_waypoint": [
+            0,
+            5
+          ],
+          "type": "MOVE",
+          "direction": "FORWARD",
+          "cells": 5
+        },
+        {
+          "next_waypoint": [
+            0,
+            5
+          ],
+          "type": "TURN",
+          "direction": "RIGHT"
+        },
+        {
+          "next_waypoint": [
+            0,
+            5
+          ],
+          "type": "TURN",
+          "direction": "LEFT"
+        },
+        {
+          "next_waypoint": [
+            0,
+            5
+          ],
+          "type": "TURN",
+          "direction": "RIGHT"
+        },
+        {
+          "next_waypoint": [
+            5,
+            5
+          ],
+          "type": "MOVE",
+          "direction": "FORWARD",
+          "cells": 5
+        },
+        {
+          "next_waypoint": [
+            5,
+            5
+          ],
+          "type": "TURN",
+          "direction": "LEFT"
+        },
+        {
+          "next_waypoint": [
+            5,
+            5
+          ],
+          "type": "TURN",
+          "direction": "RIGHT"
+        },
+        {
+          "next_waypoint": [
+            5,
+            5
+          ],
+          "type": "TURN",
+          "direction": "LEFT"
+        },
+        {
+          "next_waypoint": [
+            5,
+            6
+          ],
+          "type": "MOVE",
+          "direction": "FORWARD",
+          "cells": 1
+        }
+      ]
+    }
+  }
+]
