@@ -1,85 +1,21 @@
 #!/usr/bin/env python3
-# langgraph_nodes.py - Enhanced LLM Path Planning with Spatial Reasoning and Feedback
+# navigation.py - Core LLM Navigation System
 
-import json
 import os
 import re
+import json
 import math
-from typing import Dict, List, Tuple, Optional, Literal
-from pydantic import BaseModel, ValidationError, conint
-from loguru import logger
-import httpx
-from dataclasses import dataclass, field
 import time
 import asyncio
+import httpx
+from typing import Dict, List, Tuple, Optional, Literal
+from dataclasses import dataclass, field
+from loguru import logger
+from pydantic import BaseModel, ValidationError, conint
+from .kernels import saamv1, saamv2, native
 
-# Configure logging
-logger.add(
-    "navigation.log",
-    rotation="10 MB",
-    retention="7 days",
-    level="INFO",
-    enqueue=True,
-    backtrace=True,
-    diagnose=True
-)
-
-# ------------------- Data Models -------------------
-class SensorReading(BaseModel):
-    """Raw sensor distance readings"""
-    front: float  # Distance in cm
-    left: float   # Distance in cm
-    right: float  # Distance in cm
-
-class Action(BaseModel):
-    """Robot action commands"""
-    type: Literal["TURN", "MOVE"]
-    direction: Optional[Literal["LEFT", "RIGHT", "FORWARD"]] = None
-    cells: Optional[conint(gt=0, le=5)] = None
-
-@dataclass
-class GridCell:
-    """Individual grid cell state"""
-    type: str = "UNKNOWN"  # UNKNOWN, CLEAR, OBSTACLE, ROBOT, GOAL
-    confidence: float = 0.0
-    last_updated: int = 0
-
-@dataclass
-class RobotState:
-    """Enhanced robot state with trajectory memory"""
-    position: Tuple[int, int] = (0, 0)
-    facing: Literal["UP", "DOWN", "LEFT", "RIGHT"] = "UP"
-    step_count: int = 0
-    recent_positions: List[Tuple[int, int]] = field(default_factory=list)
-    last_goal_distance: float = 0.0
-    consecutive_distance_increases: int = 0
-
-@dataclass
-class InternalMap:
-    """Robot's internal spatial map"""
-    grid: Dict[Tuple[int, int], GridCell] = field(default_factory=dict)
-    bounds: Dict[str, int] = field(default_factory=lambda: {
-        "min_row": 0, "max_row": 0, "min_col": 0, "max_col": 0
-    })
-
-    def get_cell(self, pos: Tuple[int, int]) -> GridCell:
-        return self.grid.get(pos, GridCell())
-
-    def set_cell(self, pos: Tuple[int, int], cell_type: str, confidence: float = 1.0):
-        if pos not in self.grid:
-            self.grid[pos] = GridCell()
-        self.grid[pos].type = cell_type
-        self.grid[pos].confidence = confidence
-        self._update_bounds(pos)
-
-    def _update_bounds(self, pos: Tuple[int, int]):
-        r, c = pos
-        self.bounds["min_row"] = min(self.bounds["min_row"], r)
-        self.bounds["max_row"] = max(self.bounds["max_row"], r)
-        self.bounds["min_col"] = min(self.bounds["min_col"], c)
-        self.bounds["max_col"] = max(self.bounds["max_col"], c)
-
-# ------------------- Enhanced LLM Navigation System -------------------
+from .models import SensorReading, Action, GridCell, RobotState, InternalMap
+from .utils import calculate_distance, get_relative_direction
 class LLMNavigationSystem:
     """Enhanced LLM-based navigation with spatial reasoning and feedback"""
 
@@ -111,7 +47,12 @@ class LLMNavigationSystem:
         # Set initial positions
         self.internal_map.set_cell(self.robot_state.position, "ROBOT", 1.0)
         self.internal_map.set_cell(self.target_position, "GOAL", 1.0)
-
+        self.kernel = kernel
+        self.kernel_prompts = {
+            "saamv1": saamv1.SAAM_V1_SYSTEM_PROMPT,
+            "saamv2": saamv2.SAAM_V2_SYSTEM_PROMPT,
+            "native": native.NATIVE_SYSTEM_PROMPT
+        }
         logger.info(f"Enhanced LLM Navigation System initialized | Target: {target_position}")
 
     def _calculate_distance_to_goal(self) -> float:
@@ -382,7 +323,8 @@ class LLMNavigationSystem:
 
     def _get_system_prompt(self) -> str:
         """Enhanced system prompt with spatial reasoning and feedback"""
-        return """
+        kernel_prompt = self.kernel_prompts.get(self.kernel, "")
+        return kernel_prompt + "\n\n"+"""
 You are an advanced robot navigation AI that uses real-time sensor data to build maps and plan paths.
 
 CORE CAPABILITIES:
@@ -460,7 +402,7 @@ You MUST respond with ONLY a valid JSON object between ```json ``` markers:
   } OR {
     "type": "MOVE",
     "direction": "FORWARD",
-    "cells": 1-5
+    "cells": 1-10
   }
 }
 ```
@@ -471,7 +413,10 @@ IMPORTANT:
 - 'Forward' = current facing, 'Left/Right' relative to heading
 - Include ONLY ONE action per response
 - Do not include any additional text outside the JSON
-- Consider sensor readings when planning"""
+- Consider sensor readings when planning
+
+- Never use absolute directions (UP/DOWN) in actions
+"""
 
     def _build_navigation_prompt(self, sensors: SensorReading, map_viz: str) -> str:
         """Build enhanced navigation prompt with trajectory memory and progress tracking"""
