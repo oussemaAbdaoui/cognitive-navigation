@@ -1,47 +1,46 @@
-# cognitive-navigation
-# LLM Navigation System with Spatial Reasoning
+# Cognitive Navigation System with LLM-Based Planning
+
+![Navigation Demo](demo.gif) *(Example visualization of navigation path)*
 
 ## Overview
 
-This project implements an advanced LLM-based navigation system for robotic path planning with enhanced spatial reasoning and feedback mechanisms. The system combines real-time sensor data processing with large language model (LLM) decision-making to navigate complex environments efficiently.
+This project implements an advanced robotic navigation system that combines classical spatial reasoning with Large Language Model (LLM)-based decision making. The system processes real-time sensor data to build an internal map while leveraging LLMs for high-level path planning with sophisticated cognitive capabilities.
 
 ## Key Features
 
-- **Spatial Reasoning**: Maintains an internal grid-based map with obstacle tracking
+- **Hybrid AI Architecture**: Combines grid-based mapping with LLM-based planning
+- **Multiple Reasoning Kernels**: Supports SAAMv1, SAAMv2, and native navigation strategies
+- **Advanced Spatial Reasoning**: Maintains detailed internal map with confidence scoring
 - **Progress Monitoring**: Tracks distance to goal and detects regressions
-- **Adaptive Movement**: Adjusts movement constraints based on environment certainty
-- **Error Recovery**: Implements protocols for handling navigation failures
-- **Benchmarking**: Comprehensive testing framework with scenario evaluation
+- **Safety Mechanisms**: Collision avoidance and error recovery protocols
+- **Adaptive Movement**: Adjusts constraints based on environment certainty
+- **Comprehensive Benchmarking**: 10+ test scenarios with quantitative evaluation
 
-## System Components
+## System Architecture
 
-### Core Modules
-
-1. **LLMNavigationSystem**: Main navigation controller
-   - Processes sensor data
-   - Maintains internal map state
-   - Interfaces with LLM for path planning
-   - Executes navigation actions
-
-2. **NavigationBenchmark**: Testing framework
-   - Multiple scenario types (open space, mazes, corridors)
-   - Performance metrics (success rate, path efficiency)
-   - Detailed reporting and visualization
-
-### Data Models
-
-- `SensorReading`: Distance measurements (front, left, right)
-- `Action`: Movement commands (turn, move)
-- `GridCell`: Individual map cell state
-- `RobotState`: Current position, orientation, and trajectory
-- `InternalMap`: Spatial representation of environment
+```
+├── core/
+│   ├── navigation.py      # Main navigation controller
+│   ├── models.py          # Data models and schemas
+│   ├── environment.py     # Simulation environment
+│   └── utils.py           # Utility functions
+├── kernels/
+│   ├── saamv1.py          # Spatial constraint satisfaction kernel
+│   ├── saamv2.py          # Cognitive architecture kernel  
+│   └── native.py          # Baseline implementation
+├── benchmarks/
+│   ├── runner.py          # Benchmark execution
+│   ├── scenarios.py       # Test scenarios
+│   └── metrics.py         # Evaluation metrics
+└── tests/                 # Unit tests
+```
 
 ## Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/llm-navigation.git
-   cd llm-navigation
+   git clone https://github.com/yourusername/cognitive-navigation.git
+   cd cognitive-navigation
    ```
 
 2. Install dependencies:
@@ -49,91 +48,106 @@ This project implements an advanced LLM-based navigation system for robotic path
    pip install -r requirements.txt
    ```
 
-3. Set environment variable:
+3. Configure environment:
    ```bash
-   export GROQ_API_KEY="your-api-key-here"
+   export GROQ_API_KEY="your_api_key_here"
+   export ACTION_DELAY=0.5  # Optional: Set action delay in seconds
    ```
 
 ## Usage
 
-### Running the Navigation System
+### Basic Navigation
 
 ```python
-from langgraph_new import LLMNavigationSystem, SensorReading
+from core.navigation import LLMNavigationSystem
+from core.models import SensorReading
 
-# Initialize with target position
-nav_system = LLMNavigationSystem(target_position=(5, 5))
+# Initialize system with target position
+nav = LLMNavigationSystem(
+    target_position=(5, 5),
+    kernel="saamv2",  # Try "saamv1" or "native"
+    cell_size_cm=30
+)
 
 # Navigation loop
-while not nav_system.is_goal_reached():
+while not nav.is_goal_reached():
     # Get sensor readings (simulated or real)
-    sensors = SensorReading(front=120.0, left=80.0, right=150.0)
+    sensors = SensorReading(front=120.0, left=80.0, right=200.0)
     
     # Get next action
-    action = await nav_system.navigate_step(sensors)
+    action = await nav.navigate_step(sensors)
     
     # Execute action
-    nav_system.execute_action(action)
+    nav.execute_action(action)
     
-    # View current map
-    print(nav_system.get_current_map())
+    # View current status
+    print(nav.get_current_map())
 ```
 
 ### Running Benchmarks
 
 ```bash
-python simplified_runner.py
+python -m benchmarks.runner
 ```
 
-This will:
-1. Execute all benchmark scenarios
-2. Generate performance reports
-3. Create visualizations
-4. Provide improvement recommendations
+This executes all benchmark scenarios and generates:
+- Performance reports in `benchmark_results/`
+- Path visualizations
+- Comparative analysis between kernels
 
 ## Benchmark Scenarios
 
-The system includes 10 diverse test scenarios:
+10 diverse test environments:
 
-1. **Simple Path**: Straight-line navigation
-2. **Obstacle Maze**: Complex obstacle arrangement
-3. **Narrow Corridor**: Tight passage navigation
-4. **U-Turn**: Requires 180-degree turn
-5. **Dead End**: Needs backtracking
-6. **Multi-Path**: Multiple route options
-7. **Dynamic Obstacles**: Changing environment
-8. **Large Open Space**: Efficiency test
-9. **Spiral Path**: Continuous turning
-10. **Complex Maze**: Advanced challenge
+| Scenario | Difficulty | Description |
+|----------|------------|-------------|
+| Simple Path | Easy | Straight-line navigation |
+| Obstacle Maze | Medium | Complex obstacle arrangement |
+| Narrow Corridor | Medium | Tight passage navigation |  
+| U-Turn | Medium | Requires 180-degree turn |
+| Dead End | Hard | Needs backtracking |
+| Multi-Path | Medium | Multiple route options |
+| Dynamic Obstacles | Expert | Changing environment |
+| Large Open Space | Easy | Efficiency test |
+| Spiral Path | Hard | Continuous turning |
+| Complex Maze | Expert | Advanced challenge |
 
-## Output Metrics
+## Evaluation Metrics
 
-Each benchmark evaluates:
+1. **Navigation Success**: Goal reached without errors
+2. **Path Efficiency**: Optimal vs actual path length ratio  
+3. **Collision Avoidance**: Obstacle detection reliability
+4. **Robustness**: Handling of errors and timeouts
+5. **Time Efficiency**: Performance considering action delays
 
-- **Success Rate**: Did the robot reach the goal?
-- **Path Efficiency**: Optimal vs actual path length
-- **Collision Avoidance**: Obstacle detection reliability
-- **Robustness**: Error and timeout handling
-- **Execution Time**: Performance characteristics
+## Results Output
 
-## Results Visualization
+Example benchmark structure:
+```
+benchmark_results/
+├── 20240515_143000/
+│   ├── Simple_Path/
+│   │   ├── saamv1/
+│   │   │   ├── result.json
+│   │   │   └── path_visualization.png
+│   ├── benchmark_report.json
+│   └── raw_results.json
+```
 
-Benchmark results include:
-
-- Success rate by scenario
+Reports include:
+- Success rates by scenario and kernel
 - Path efficiency comparisons
 - Execution time analysis
 - Performance by difficulty level
 
-![Sample Benchmark Visualization](benchmark_results/benchmark_overview.png)
-
 ## Configuration
 
-Key parameters in `langgraph_new.py`:
+Key parameters for `LLMNavigationSystem`:
 
 ```python
 LLMNavigationSystem(
     target_position: Tuple[int, int],  # Goal coordinates
+    kernel: str = "native",           # "saamv1", "saamv2", or "native"
     cell_size_cm: int = 30,           # Grid cell size in cm
     max_sensor_range_cm: int = 300    # Maximum sensor range
 )
@@ -147,22 +161,13 @@ LLMNavigationSystem(
   - httpx
   - loguru
   - numpy
-  - matplotlib
-  - seaborn
-  - pandas
-  - deepeval
-
-## License
-
-MIT License
-
-## Contributing
-
-Contributions are welcome! Please open an issue or pull request for any improvements.
+  - matplotlib (for visualization)
+  - deepeval (for benchmarking)
 
 ## Future Work
 
-- Add more sensor types (LIDAR, cameras)
-- Implement multi-agent coordination
-- Add dynamic obstacle handling
-- Improve error recovery protocols
+- [ ] Add multi-sensor integration (LIDAR, cameras)
+- [ ] Implement multi-agent coordination
+- [ ] Enhance dynamic obstacle handling
+- [ ] Develop ROS integration package
+- [ ] Add reinforcement learning components
