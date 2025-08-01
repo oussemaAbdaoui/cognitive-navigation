@@ -1,6 +1,5 @@
 # Cognitive Navigation System with LLM-Based Planning
 
-![Navigation Demo](demo.gif) *(Example visualization of navigation path)*
 
 ## Overview
 
