@@ -1,0 +1,7 @@
+venv/
+.venv/
+nav_env/
+__pycache__/
+*.pyc
+.deepeval/
+.env
