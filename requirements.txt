@@ -1,0 +1,6 @@
+deepeval
+httpx
+loguru
+matplotlib
+numpy
+pydantic
