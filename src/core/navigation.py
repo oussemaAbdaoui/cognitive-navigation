@@ -21,8 +21,10 @@ class LLMNavigationSystem:
 
     def __init__(self,
                  target_position: Tuple[int, int],
+                 kernel: str = "native",
                  cell_size_cm: int = 30,
-                 max_sensor_range_cm: int = 300):
+                 max_sensor_range_cm: int = 300,
+                 api_key: Optional[str] = None):
         self._min_call_interval = 0.0
         self._daily_requests = 0
         self._tokens_used_today = 0
@@ -40,19 +42,21 @@ class LLMNavigationSystem:
         self.robot_state.last_goal_distance = self._calculate_distance_to_goal()
 
         # LLM API setup
-        self.api_key = os.getenv("GROQ_API_KEY")
+        self.api_key = api_key or os.getenv("GROQ_API_KEY")
         if not self.api_key:
             raise EnvironmentError("GROQ_API_KEY required")
 
         # Set initial positions
         self.internal_map.set_cell(self.robot_state.position, "ROBOT", 1.0)
         self.internal_map.set_cell(self.target_position, "GOAL", 1.0)
-        self.kernel = kernel
         self.kernel_prompts = {
             "saamv1": saamv1.SAAM_V1_SYSTEM_PROMPT,
             "saamv2": saamv2.SAAM_V2_SYSTEM_PROMPT,
             "native": native.NATIVE_SYSTEM_PROMPT
         }
+        if kernel not in self.kernel_prompts:
+            raise ValueError(f"Unknown kernel {kernel!r}; expected one of {sorted(self.kernel_prompts)}")
+        self.kernel = kernel
         logger.info(f"Enhanced LLM Navigation System initialized | Target: {target_position}")
 
     def _calculate_distance_to_goal(self) -> float:
