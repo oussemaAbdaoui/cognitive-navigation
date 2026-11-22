@@ -1,6 +1,6 @@
-deepeval
-httpx
-loguru
-matplotlib
-numpy
-pydantic
+deepeval>=4.3.4
+httpx>=0.28.1
+loguru>=0.8.0
+matplotlib>=3.11.2
+numpy>=2.2.6
+pydantic>=2.14.4
