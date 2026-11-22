@@ -411,7 +411,7 @@ You MUST respond with ONLY a valid JSON object between ```json ``` markers:
   } OR {
     "type": "MOVE",
     "direction": "FORWARD",
-    "cells": 1-10
+    "cells": 1-5
   }
 }
 ```
