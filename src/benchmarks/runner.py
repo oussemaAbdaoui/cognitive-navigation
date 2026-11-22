@@ -135,9 +135,10 @@ class NavigationBenchmark:
                     error_message = "Action execution failed"
                     break
 
-                # Check for collision
+                # Check for collision on every cell the move passed through,
+                # not only the cell where it ended
                 new_pos = nav_system.robot_state.position
-                if not environment.is_valid_position(new_pos):
+                if self._path_collides(environment, current_pos, new_pos):
                     collision_occurred = True
                     error_message = "Collision detected"
                     break
@@ -193,6 +194,25 @@ class NavigationBenchmark:
         )
 
         return result
+
+    @staticmethod
+    def _path_collides(
+        environment: NavigationEnvironment,
+        start: Tuple[int, int],
+        end: Tuple[int, int]
+    ) -> bool:
+        """True if any cell after start, up to and including end, is invalid.
+
+        Moves are straight lines along one axis, so this walks the
+        intermediate cells of a multi-cell MOVE.
+        """
+        dx = (end[0] > start[0]) - (end[0] < start[0])
+        dy = (end[1] > start[1]) - (end[1] < start[1])
+        n_cells = max(abs(end[0] - start[0]), abs(end[1] - start[1]))
+        return any(
+            not environment.is_valid_position((start[0] + i * dx, start[1] + i * dy))
+            for i in range(1, n_cells + 1)
+        )
 
     def _validate_scenario(self, scenario: BenchmarkScenario) -> None:
         """Validate scenario parameters"""
