@@ -72,6 +72,7 @@ class NavigationBenchmark:
             raise ValueError("Valid API key is required")
 
         self.scenarios = scenarios
+        self._scenarios_by_name = {s.name: s for s in scenarios}
         self.api_key = api_key
         self.results: List[NavigationResult] = []
         self.kernels: List[KernelType] = ["saamv1", "saamv2", "native"]
@@ -355,11 +356,16 @@ class NavigationBenchmark:
         except Exception as e:
             logger.error(f"Failed to generate visualization: {str(e)}")
 
+    def _scenario_for(self, result: NavigationResult) -> BenchmarkScenario:
+        """Scenario a result belongs to (results hold one entry per kernel)."""
+        return self._scenarios_by_name[result.scenario_name]
+
     def create_deepeval_dataset(self) -> EvaluationDataset:
         """Create DeepEval dataset from results with proper string formatting"""
         test_cases = []
 
-        for scenario, result in zip(self.scenarios, self.results):
+        for result in self.results:
+            scenario = self._scenario_for(result)
             try:
                 # Convert dictionaries to JSON strings as expected by DeepEval
                 actual_output = json.dumps({
@@ -427,11 +433,11 @@ class NavigationBenchmark:
 
             # Process evaluation results
             for i, test_result in enumerate(evaluation_results):
-                if i >= len(self.scenarios):
+                if i >= len(self.results):
                     break
 
                 result_data = {
-                    'scenario_name': self.scenarios[i].name,
+                    'scenario_name': self.results[i].scenario_name,
                     'kernel': self.results[i].kernel,
                     'success': getattr(test_result, 'success', False),
                     'metrics': {}
@@ -490,7 +496,8 @@ class NavigationBenchmark:
         difficulty_stats = {}
         kernel_stats = {}
 
-        for scenario, result in zip(self.scenarios, self.results):
+        for result in self.results:
+            scenario = self._scenario_for(result)
             # Difficulty stats
             diff = scenario.difficulty
             if diff not in difficulty_stats:
@@ -557,7 +564,8 @@ class NavigationBenchmark:
                     'time': result.execution_time,
                     'failure_reason': self._get_failure_reason(result)
                 }
-                for scenario, result in zip(self.scenarios, self.results)
+                for result in self.results
+                for scenario in [self._scenario_for(result)]
             ]
         }
 
