@@ -12,7 +12,7 @@ from typing import Dict, List, Tuple, Optional, Literal
 from dataclasses import dataclass, field
 from loguru import logger
 from pydantic import BaseModel, ValidationError, conint
-from .kernels import saamv1, saamv2, native
+from ..kernels import saamv1, saamv2, native
 
 from .models import SensorReading, Action, GridCell, RobotState, InternalMap
 from .utils import calculate_distance, get_relative_direction
