@@ -146,7 +146,10 @@ class LLMNavigationSystem:
             if self.robot_state.consecutive_distance_increases >= 3:
                 logger.error("🚨 CRITICAL: Triggering error recovery protocol!")
                 # In a real system, this would initiate recovery behaviors
-        else:
+        elif current_distance < prev_distance:
+            # Only real progress clears the streak. execute_action() already
+            # updates last_goal_distance after every move, so an unchanged
+            # distance here must not wipe the regression counter.
             self.robot_state.consecutive_distance_increases = 0
 
         self.robot_state.last_goal_distance = current_distance
