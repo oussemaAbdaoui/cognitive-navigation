@@ -12,12 +12,13 @@ class NavigationEnvironment:
     def get_sensor_readings(self, position: Tuple[int, int], facing: str) -> SensorReading:
         """Simulate sensor readings from current position"""
 
-        # Direction vectors for sensor orientations
+        # Direction vectors for sensor orientations, in the same Cartesian
+        # (x, y) convention as LLMNavigationSystem: UP = +y, RIGHT = +x.
         direction_vectors = {
-            "UP": {"front": (-1, 0), "left": (0, -1), "right": (0, 1)},
-            "DOWN": {"front": (1, 0), "left": (0, 1), "right": (0, -1)},
-            "LEFT": {"front": (0, -1), "left": (1, 0), "right": (-1, 0)},
-            "RIGHT": {"front": (0, 1), "left": (-1, 0), "right": (1, 0)}
+            "UP": {"front": (0, 1), "left": (-1, 0), "right": (1, 0)},
+            "DOWN": {"front": (0, -1), "left": (1, 0), "right": (-1, 0)},
+            "LEFT": {"front": (-1, 0), "left": (0, -1), "right": (0, 1)},
+            "RIGHT": {"front": (1, 0), "left": (0, 1), "right": (0, -1)}
         }
 
         vectors = direction_vectors[facing]
