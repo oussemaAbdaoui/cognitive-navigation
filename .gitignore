@@ -5,3 +5,5 @@ __pycache__/
 *.pyc
 .deepeval/
 .env
+.pytest_cache/
+benchmark_results/
