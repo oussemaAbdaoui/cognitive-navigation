@@ -71,20 +71,6 @@ def create_benchmark_scenarios() -> List[BenchmarkScenario]:
             difficulty="medium"
         ),
 
-# 3. Narrow corridor
-        BenchmarkScenario(
-            name="Narrow Corridor",
-            scenario_type=ScenarioType.NARROW_CORRIDOR,
-            start_position=(0, 0),
-            goal_position=(6, 0),
-            obstacles=[(1, -1), (1, 1), (2, -1), (2, 1), (3, -1), (3, 1),
-                      (4, -1), (4, 1), (5, -1), (5, 1)],
-            expected_path_length_range=(6, 10),
-            max_steps=25,
-            description="Navigate through a narrow corridor",
-            difficulty="medium"
-        ),
-
         # 4. U-turn scenario
         BenchmarkScenario(
             name="U-Turn Challenge",
