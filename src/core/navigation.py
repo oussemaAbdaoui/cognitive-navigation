@@ -230,17 +230,19 @@ class LLMNavigationSystem:
         bounds = self.internal_map.bounds
         visualization = []
 
-        # Add header with coordinates
-        col_range = range(bounds["min_col"], bounds["max_col"] + 1)
-        header = "    " + "".join(f"{c:>3}" for c in col_range)
+        # Positions are Cartesian (x, y). InternalMap tracks pos[0] (x) in
+        # min_row/max_row and pos[1] (y) in min_col/max_col, so draw x as
+        # columns and y as rows, with +y (UP) at the top.
+        x_range = range(bounds["min_row"], bounds["max_row"] + 1)
+        header = "    " + "".join(f"{x:>3}" for x in x_range)
         visualization.append(header)
 
-        # Generate grid rows
-        for r in range(bounds["min_row"], bounds["max_row"] + 1):
-            row_str = f"{r:3} "
-            for c in col_range:
-                cell = self.internal_map.get_cell((r, c))
-                symbol = self._get_cell_symbol(cell.type, (r, c))
+        # Generate grid rows, highest y first
+        for y in range(bounds["max_col"], bounds["min_col"] - 1, -1):
+            row_str = f"{y:3} "
+            for x in x_range:
+                cell = self.internal_map.get_cell((x, y))
+                symbol = self._get_cell_symbol(cell.type, (x, y))
                 row_str += f" {symbol} "
             visualization.append(row_str)
 
