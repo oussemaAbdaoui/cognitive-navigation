@@ -337,7 +337,7 @@ class NavigationBenchmark:
             plt.plot(result.path_trace[0][0], result.path_trace[0][1],
                     'go', markersize=10, label='Start')
             plt.plot(result.path_trace[-1][0], result.path_trace[-1][1],
-                    'ro', markersize=10, label='Goal')
+                    'ro', markersize=10, label='End')
 
             plt.title(f"{result.scenario_name} - {result.kernel} Kernel\n"
                      f"Status: {'Success' if result.success else 'Failed'}")
